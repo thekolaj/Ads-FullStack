@@ -11,6 +11,7 @@ import {
   JoinTable,
 } from 'typeorm'
 import { z } from 'zod'
+import { imageUpsertSchema } from './image'
 import { User, Image, Comment, Category } from '.'
 
 @Entity()
@@ -28,10 +29,13 @@ export class Ad {
   price: number | null
 
   @CreateDateColumn()
-  created_at: Date
+  createdAt: Date
 
   @UpdateDateColumn()
-  updated_at: Date
+  updatedAt: Date
+
+  @Column('integer')
+  userId: number
 
   @ManyToOne(() => User, (user) => user.ads, {
     onDelete: 'CASCADE',
@@ -50,3 +54,22 @@ export class Ad {
   @JoinTable()
   categories: Category[]
 }
+
+export type AdBare = Omit<Ad, 'user' | 'comments' | 'images' | 'categories'>
+
+export const adSchema = validates<AdBare>().with({
+  id: z.number().int().positive(),
+  title: z.string().min(1).max(64),
+  text: z.string().min(1).max(999),
+  price: z.number().positive().nullable(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  userId: z.number().int().positive(),
+})
+
+export const adUpsertSchema = adSchema
+  .omit({ createdAt: true, updatedAt: true })
+  .extend({
+    id: adSchema.shape.id.optional(),
+    images: imageUpsertSchema.array(),
+  })

@@ -19,18 +19,41 @@ export class Comment {
   text: string
 
   @CreateDateColumn()
-  created_at: Date
+  createdAt: Date
 
   @UpdateDateColumn()
-  updated_at: Date
+  updatedAt: Date
+
+  @Column('integer')
+  userId: number
 
   @ManyToOne(() => User, (user) => user.comments, {
     onDelete: 'CASCADE',
   })
   user: User
 
+  @Column('integer')
+  adId: number
+
   @ManyToOne(() => Ad, (ad) => ad.comments, {
     onDelete: 'CASCADE',
   })
   ad: Ad
 }
+
+export type CommentBare = Omit<Comment, 'user' | 'ad'>
+
+export const commentSchema = validates<CommentBare>().with({
+  id: z.number().int().positive(),
+  text: z.string().min(1).max(300),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  userId: z.number().int().positive(),
+  adId: z.number().int().positive(),
+})
+
+export const commentUpsertSchema = commentSchema
+  .omit({ createdAt: true, updatedAt: true })
+  .extend({
+    id: commentSchema.shape.id.optional(),
+  })

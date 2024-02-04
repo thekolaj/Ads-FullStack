@@ -16,3 +16,14 @@ export class Image {
   })
   ad: Ad
 }
+
+export type ImageBare = Omit<Image, 'ad'>
+
+export const imageSchema = validates<ImageBare>().with({
+  id: z.number().int().positive(),
+  url: z.string().url(),
+})
+
+export const imageUpsertSchema = imageSchema.extend({
+  id: imageSchema.shape.id.optional(),
+})

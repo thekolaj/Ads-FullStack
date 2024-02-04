@@ -21,3 +21,14 @@ export class Category {
   @ManyToMany(() => Ad)
   ads: Ad[]
 }
+
+export type CategoryBare = Omit<Category, 'ads'>
+
+export const categorySchema = validates<CategoryBare>().with({
+  id: z.number().int().positive(),
+  title: z.string().min(1).max(64),
+})
+
+export const categoryUpsertSchema = categorySchema.extend({
+  id: categorySchema.shape.id.optional(),
+})
