@@ -1,4 +1,4 @@
-import { fakeUser } from '@server/entities/tests/fakes'
+import { fakeUsers } from '@server/entities/test/fixtures'
 import { authUserSchema, type AuthUser } from '@server/entities/user'
 import type { Context, ContextMinimal } from '@server/trpc'
 
@@ -17,19 +17,8 @@ export const requestContext = (
 
 export const authContext = (
   context: Partial<Context> & ContextMinimal,
-  user: AuthUser = fakeUser()
+  user: AuthUser = fakeUsers[1]
 ): Context => ({
   authUser: authUserSchema.parse(user),
   ...context,
-})
-
-export const authRepoContext = (
-  repos: any, // Context['repos'], but easier to work with any
-  user: AuthUser = fakeUser()
-): Context => ({
-  authUser: authUserSchema.parse(user),
-  ...requestContext({
-    db: {} as any,
-    repos,
-  }),
 })

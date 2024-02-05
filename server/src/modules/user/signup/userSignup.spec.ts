@@ -1,6 +1,7 @@
 import { createTestDatabase } from '@tests/utils/database'
 import { User } from '@server/entities'
-import { fakeUser } from '@server/entities/tests/fakes'
+import { fakeUsers } from '@server/entities/test/fixtures'
+import { userInsertSchema } from '@server/entities/user'
 import usersRouter from '..'
 
 const db = await createTestDatabase()
@@ -8,31 +9,29 @@ const userRepository = db.getRepository(User)
 const { signup } = usersRouter.createCaller({ db })
 
 it('should save a user', async () => {
-  const user = fakeUser()
-  const response = await signup(user)
-
-  const userCreated = (await userRepository.findOneOrFail({
+  const userExpected = userInsertSchema.parse(fakeUsers[3])
+  const response = await signup(fakeUsers[3])
+  const userCreated = await userRepository.findOneOrFail({
     select: {
       id: true,
       email: true,
       password: true,
     },
     where: {
-      email: user.email,
+      email: userExpected.email,
     },
-  })) as Pick<User, 'id' | 'email' | 'password'>
-
+  })
   expect(userCreated).toEqual({
     id: expect.any(Number),
-    email: user.email,
-    password: expect.not.stringContaining(user.password),
+    email: userExpected.email,
+    password: expect.not.stringContaining(userExpected.password),
   })
 
   expect(userCreated.password).toHaveLength(60)
 
   expect(response).toEqual({
     id: expect.any(Number),
-    email: user.email,
+    email: userExpected.email,
   })
 
   expect(response.id).toEqual(userCreated!.id)
@@ -42,31 +41,24 @@ it('should require a valid email', async () => {
   await expect(
     signup({
       email: 'user-email-invalid',
+      name: 'User',
       password: 'password.123',
     })
-  ).rejects.toThrow(/email/i) // throws out some error complaining about "email"
+  ).rejects.toThrow(/email/i)
 })
 
-it('should require a password with at least 8 characters', async () => {
+it('should require a password with at least 6 characters', async () => {
   await expect(
     signup({
       email: 'user2@domain.com',
-      password: 'pas.123',
+      name: 'User',
+      password: 'p.123',
     })
-  ).rejects.toThrow(/password/i) // throws out some error complaining about "password"
-})
-
-it('throws an error for invalid email', async () => {
-  await expect(
-    signup({
-      email: 'not-an-email',
-      password: 'some-password',
-    })
-  ).rejects.toThrow(/email/)
+  ).rejects.toThrow(/password/i)
 })
 
 it('stores lowercased email', async () => {
-  const user = fakeUser()
+  const user = fakeUsers[1]
   await signup({
     ...user,
     email: user.email.toUpperCase(),
@@ -74,16 +66,16 @@ it('stores lowercased email', async () => {
 
   await expect(
     userRepository.findOneByOrFail({
-      email: user.email,
+      email: user.email.toLowerCase(),
     })
   ).resolves.not.toBeNull()
 })
 
 it('stores email with trimmed whitespace', async () => {
-  const user = fakeUser()
+  const user = fakeUsers[2]
   await signup({
     ...user,
-    email: ` \t ${user.email}\t `, // tabs and spaces
+    email: ` \t ${user.email}\t `,
   })
 
   await expect(

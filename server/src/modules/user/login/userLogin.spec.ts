@@ -1,32 +1,18 @@
-// import { createMockDatabase } from '@tests/utils/database'
 import usersRouter from '..'
 
 const userSeed = {
   id: 12345,
   email: 'existing@user.com',
-  // We could mock out the bcrypt though in this case it would
-  // make our tests a less readable. If we would need to perform
-  // lots of bcrypt calls, then we should consider mocking it out.
-  // Hash for 'password.123' (PASSWORD_CORRECT).
+  admin: false,
   password: '$2b$10$sD53fzWIQBjXWfSDzuwmMOyY1ZAygLpRZlLxxPhcNG5r9BFWrNaDC',
 }
 
-// Example using a mocked out db.
 const db = {
   getRepository: () => ({
     findOne: ({ where: { email } }: any) =>
       email === userSeed.email ? userSeed : null,
   }),
 }
-
-// The same mocked db, but with a more declarative utility function,
-// which is easier to work with if we would have multiple repositories.
-// const db = createMockDatabase({
-//   User: {
-//     findOne: ({ where: { email } }: any) =>
-//       email === userSeed.email ? userSeed : null,
-//   },
-// })
 
 const { login } = usersRouter.createCaller({ db } as any)
 

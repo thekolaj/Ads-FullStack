@@ -7,6 +7,7 @@ import z from 'zod'
 const tokenPayloadSchema = z.object({
   user: z.object({
     id: z.number(),
+    admin: z.boolean(),
   }),
 })
 

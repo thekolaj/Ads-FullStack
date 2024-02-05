@@ -60,8 +60,9 @@ export const userInsertSchema = userSchema.omit({ id: true }).extend({
 
 export const userUpdateSchema = userSchema
 
-export type AuthUser = Pick<User, 'id'>
+export type AuthUser = Pick<User, 'id' | 'admin'>
 
 export const authUserSchema = validates<AuthUser>().with({
-  id: z.number().int().positive(),
+  id: userSchema.shape.id,
+  admin: userSchema.shape.admin,
 })

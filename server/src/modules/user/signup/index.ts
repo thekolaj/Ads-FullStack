@@ -1,8 +1,7 @@
 import bcrypt from 'bcrypt'
 import { publicProcedure } from '@server/trpc'
-import { User } from '@server/entities'
 import config from '@server/config'
-import { userInsertSchema } from '@server/entities/user'
+import { User, userInsertSchema } from '@server/entities/user'
 import { TRPCError } from '@trpc/server'
 
 export default publicProcedure
@@ -11,7 +10,14 @@ export default publicProcedure
     const hash = await bcrypt.hash(password, config.auth.passwordCost)
 
     try {
-      return await db.getRepository(User).save({ email, name, password: hash })
+      const user = await db
+        .getRepository(User)
+        .save({ email, name, password: hash })
+
+      return {
+        id: user.id,
+        email: user.email,
+      }
     } catch (error) {
       if (!(error instanceof Error)) {
         throw error
