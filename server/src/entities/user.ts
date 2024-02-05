@@ -52,12 +52,13 @@ export const userSchema = validates<UserBare>().with({
   admin: z.boolean(),
 })
 
-export const userUpsertSchema = userSchema.extend({
-  id: userSchema.shape.id.optional(),
+export const userInsertSchema = userSchema.omit({ id: true }).extend({
   phone: userSchema.shape.phone.default(null),
   avatar: userSchema.shape.avatar.default(null),
   admin: userSchema.shape.admin.default(false),
 })
+
+export const userUpdateSchema = userSchema
 
 export type AuthUser = Pick<User, 'id'>
 

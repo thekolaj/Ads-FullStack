@@ -10,21 +10,11 @@ import { prepareTokenPayload } from '../tokenPayload'
 const { expiresIn, tokenKey } = config.auth
 
 export default publicProcedure
-  .input(
-    userSchema.pick({
-      email: true,
-      password: true,
-    })
-  )
+  .input(userSchema.pick({ email: true, password: true }))
   .mutation(async ({ input: { email, password }, ctx: { db } }) => {
     const user = (await db.getRepository(User).findOne({
-      select: {
-        id: true,
-        password: true,
-      },
-      where: {
-        email,
-      },
+      select: { id: true, password: true },
+      where: { email },
     })) as Pick<User, 'id' | 'password'> | undefined
 
     if (!user) {
@@ -43,12 +33,9 @@ export default publicProcedure
       })
     }
 
-    // What we will include in the token.
     const payload = prepareTokenPayload(user)
 
-    const accessToken = jsonwebtoken.sign(payload, tokenKey, {
-      expiresIn,
-    })
+    const accessToken = jsonwebtoken.sign(payload, tokenKey, { expiresIn })
 
     return {
       accessToken,

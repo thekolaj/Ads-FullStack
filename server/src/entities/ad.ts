@@ -67,9 +67,12 @@ export const adSchema = validates<AdBare>().with({
   userId: z.number().int().positive(),
 })
 
-export const adUpsertSchema = adSchema
-  .omit({ createdAt: true, updatedAt: true })
+export const adInsertSchema = adSchema
+  .omit({ id: true, createdAt: true, updatedAt: true })
   .extend({
-    id: adSchema.shape.id.optional(),
     images: imageUpsertSchema.array(),
   })
+
+export const adUpdateSchema = adInsertSchema.extend({
+  id: adSchema.shape.id,
+})

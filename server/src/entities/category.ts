@@ -29,6 +29,4 @@ export const categorySchema = validates<CategoryBare>().with({
   title: z.string().min(1).max(64),
 })
 
-export const categoryUpsertSchema = categorySchema.extend({
-  id: categorySchema.shape.id.optional(),
-})
+export const categoryUpsertSchema = categorySchema.partial({ id: true })

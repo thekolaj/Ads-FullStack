@@ -24,6 +24,4 @@ export const imageSchema = validates<ImageBare>().with({
   url: z.string().url(),
 })
 
-export const imageUpsertSchema = imageSchema.extend({
-  id: imageSchema.shape.id.optional(),
-})
+export const imageUpsertSchema = imageSchema.partial({ id: true })
