@@ -21,12 +21,3 @@ type TokenPayload = z.infer<typeof tokenPayloadSchema>
 export function prepareTokenPayload(user: AuthUser): TokenPayload {
   return tokenPayloadSchema.parse({ user })
 }
-
-/**
- * Parses the payload of a verified JWT token.
- * @param tokenVerified - The verified JWT token.
- * @returns The parsed token payload.
- */
-export function parseTokenPayload(tokenVerified: unknown): TokenPayload {
-  return tokenPayloadSchema.parse(tokenVerified)
-}

@@ -8,7 +8,7 @@ export default authenticatedProcedure
     if (userData.id !== authUser.id) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',
-        message: 'You can only change your own profile',
+        message: 'Logged in user does not match the profile',
       })
     }
 

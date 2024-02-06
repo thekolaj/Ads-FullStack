@@ -2,11 +2,11 @@ import { createTestDatabase } from '@tests/utils/database'
 import { User } from '@server/entities'
 import { fakeUsers } from '@server/entities/test/fixtures'
 import { userInsertSchema } from '@server/entities/user'
-import usersRouter from '..'
+import userRouter from '..'
 
 const db = await createTestDatabase()
 const userRepository = db.getRepository(User)
-const { signup } = usersRouter.createCaller({ db })
+const { signup } = userRouter.createCaller({ db })
 
 it('should save a user', async () => {
   const userExpected = userInsertSchema.parse(fakeUsers[3])
@@ -32,6 +32,7 @@ it('should save a user', async () => {
   expect(response).toEqual({
     id: expect.any(Number),
     email: userExpected.email,
+    name: userExpected.name,
   })
 
   expect(response.id).toEqual(userCreated!.id)
@@ -41,6 +42,21 @@ it('should require a valid email', async () => {
   await expect(
     signup({
       email: 'user-email-invalid',
+      name: 'User',
+      password: 'password.123',
+    })
+  ).rejects.toThrow(/email/i)
+})
+
+it('should require a unique email', async () => {
+  await signup({
+    email: 'duplicate@email.com',
+    name: 'User',
+    password: 'password.123',
+  })
+  await expect(
+    signup({
+      email: 'duplicate@email.com',
       name: 'User',
       password: 'password.123',
     })

@@ -30,7 +30,7 @@ export class User {
   @Column('text', { nullable: true })
   avatar: string | null
 
-  @Column('boolean', { default: false })
+  @Column('boolean', { default: 'false' })
   admin: boolean
 
   @OneToMany(() => Ad, (ad) => ad.user)
@@ -58,7 +58,7 @@ export const userInsertSchema = userSchema.omit({ id: true }).extend({
   admin: userSchema.shape.admin.default(false),
 })
 
-export const userUpdateSchema = userSchema
+export const userUpdateSchema = userSchema.omit({ password: true })
 
 export type AuthUser = Pick<User, 'id' | 'admin'>
 
