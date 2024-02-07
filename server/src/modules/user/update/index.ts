@@ -7,7 +7,7 @@ export default authenticatedProcedure
   .mutation(async ({ input: userData, ctx: { authUser, db } }) => {
     if (userData.id !== authUser.id) {
       throw new TRPCError({
-        code: 'UNAUTHORIZED',
+        code: 'FORBIDDEN',
         message: 'Logged in user can only update himself',
       })
     }

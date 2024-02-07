@@ -72,7 +72,6 @@ const config = schema.parse({
 
 export default config
 
-// utility functions
 function coerceBoolean(value: unknown) {
   if (typeof value === 'string') {
     return value === 'true' || value === '1'

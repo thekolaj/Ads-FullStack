@@ -3,13 +3,13 @@ import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { TRPCError } from '@trpc/server'
 
 export default authenticatedProcedure
-  .input(categorySchema)
-  .mutation(async ({ input: categoryData, ctx: { authUser, db } }) => {
+  .input(categorySchema.pick({ id: true }))
+  .mutation(async ({ input: { id }, ctx: { authUser, db } }) => {
     if (!authUser.admin) {
       throw new TRPCError({
-        code: 'UNAUTHORIZED',
+        code: 'FORBIDDEN',
         message: 'Admin only',
       })
     }
-    return db.getRepository(Category).delete(categoryData)
+    return db.getRepository(Category).delete(id)
   })

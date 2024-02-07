@@ -12,6 +12,7 @@ import {
 } from 'typeorm'
 import { z } from 'zod'
 import { imageUpsertSchema } from './image'
+import { categorySchema } from './category'
 import { User, Image, Comment, Category } from '.'
 
 @Entity()
@@ -43,7 +44,7 @@ export class Ad {
   user: User
 
   @OneToMany(() => Image, (image) => image.ad, {
-    cascade: ['insert', 'update'],
+    cascade: true,
   })
   images: Image[]
 
@@ -67,12 +68,11 @@ export const adSchema = validates<AdBare>().with({
   userId: z.number().int().positive(),
 })
 
-export const adInsertSchema = adSchema
-  .omit({ id: true, createdAt: true, updatedAt: true })
+export const adUpdateSchema = adSchema
+  .omit({ userId: true, createdAt: true, updatedAt: true })
   .extend({
     images: imageUpsertSchema.array(),
+    categories: categorySchema.pick({ id: true }).array(),
   })
 
-export const adUpdateSchema = adInsertSchema.extend({
-  id: adSchema.shape.id,
-})
+export const adInsertSchema = adUpdateSchema.omit({ id: true })

@@ -52,13 +52,12 @@ export const commentSchema = validates<CommentBare>().with({
   adId: z.number().int().positive(),
 })
 
-export const commentInsertSchema = commentSchema.omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
+export const commentInsertSchema = commentSchema.pick({
+  text: true,
+  adId: true,
 })
 
-export const commentUpdateSchema = commentSchema.omit({
-  createdAt: true,
-  updatedAt: true,
+export const commentUpdateSchema = commentSchema.pick({
+  id: true,
+  text: true,
 })

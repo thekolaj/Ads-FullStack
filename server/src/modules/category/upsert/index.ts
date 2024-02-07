@@ -7,7 +7,7 @@ export default authenticatedProcedure
   .mutation(async ({ input: categoryData, ctx: { authUser, db } }) => {
     if (!authUser.admin) {
       throw new TRPCError({
-        code: 'UNAUTHORIZED',
+        code: 'FORBIDDEN',
         message: 'Admin only',
       })
     }
