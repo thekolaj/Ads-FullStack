@@ -15,5 +15,5 @@ export default authenticatedProcedure
       })
     }
 
-    return db.getRepository(Comment).save({ id, text })
+    return commentRepository.save({ id, text })
   })

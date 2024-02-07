@@ -76,3 +76,8 @@ export const adUpdateSchema = adSchema
   })
 
 export const adInsertSchema = adUpdateSchema.omit({ id: true })
+
+export const adSearchSchema = adSchema
+  .pick({ userId: true })
+  .extend({ categoryId: z.number().int().positive() })
+  .partial()

@@ -14,5 +14,5 @@ export default authenticatedProcedure
         message: 'No access to delete this comment',
       })
     }
-    return db.getRepository(Comment).delete(id)
+    return commentRepository.delete(id)
   })

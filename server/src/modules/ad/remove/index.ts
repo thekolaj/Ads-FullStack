@@ -14,5 +14,5 @@ export default authenticatedProcedure
         message: 'No access to delete this ad',
       })
     }
-    return db.getRepository(Ad).delete(id)
+    return adRepository.delete(id)
   })
