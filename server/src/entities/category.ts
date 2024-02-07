@@ -1,11 +1,5 @@
 import { validates } from '@server/utils/validation'
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  Unique,
-  ManyToMany,
-} from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, Unique, ManyToMany } from 'typeorm'
 import { z } from 'zod'
 import { Ad } from '.'
 

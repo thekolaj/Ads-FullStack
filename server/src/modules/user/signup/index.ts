@@ -10,9 +10,7 @@ export default publicProcedure
     const hash = await bcrypt.hash(password, config.auth.passwordCost)
 
     try {
-      const user = await db
-        .getRepository(User)
-        .save({ email, name, password: hash })
+      const user = await db.getRepository(User).save({ email, name, password: hash })
 
       return {
         id: user.id,

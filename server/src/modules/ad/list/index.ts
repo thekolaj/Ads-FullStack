@@ -9,11 +9,13 @@ const relations = {
 
 export default publicProcedure
   .input(adSearchSchema)
-  .query(async ({ input: { categoryId: id, userId }, ctx: { db } }) => {
-    if (id)
-      return db
+  .query(async ({ input: { categoryId: id, userId }, ctx: { db } }): Promise<Ad[]> => {
+    if (id) {
+      const response = await db
         .getRepository(Category)
-        .find({ relations: { ads: relations }, where: { id } })
+        .findOneOrFail({ relations: { ads: relations }, where: { id } })
+      return response.ads
+    }
 
     return db.getRepository(Ad).find({ relations, where: { userId } })
   })

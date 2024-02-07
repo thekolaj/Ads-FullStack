@@ -35,9 +35,4 @@ const t = initTRPC.context<Context>().create({
   },
 })
 
-export const {
-  middleware,
-  router,
-  procedure: publicProcedure,
-  mergeRouters,
-} = t
+export const { middleware, router, procedure: publicProcedure, mergeRouters } = t

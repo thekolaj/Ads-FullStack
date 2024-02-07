@@ -9,8 +9,7 @@ const userSeed = {
 
 const db = {
   getRepository: () => ({
-    findOne: ({ where: { email } }: any) =>
-      email === userSeed.email ? userSeed : null,
+    findOne: ({ where: { email } }: any) => (email === userSeed.email ? userSeed : null),
   }),
 }
 
