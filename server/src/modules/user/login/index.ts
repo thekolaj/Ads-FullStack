@@ -4,7 +4,7 @@ import jsonwebtoken from 'jsonwebtoken'
 import { publicProcedure } from '@server/trpc'
 import { TRPCError } from '@trpc/server'
 import { User, userSchema } from '@server/entities/user'
-import { prepareTokenPayload } from '../tokenPayload'
+import { prepareTokenPayload } from './tokenPayload'
 
 const { expiresIn, tokenKey } = config.auth
 
