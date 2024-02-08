@@ -21,10 +21,7 @@ export class User {
   @Column('text', { nullable: true })
   phone: string | null
 
-  @Column('text', { nullable: true })
-  avatar: string | null
-
-  @Column('boolean', { default: 'false' })
+  @Column('boolean', { default: false })
   admin: boolean
 
   @OneToMany(() => Ad, (ad) => ad.user)
@@ -42,13 +39,11 @@ export const userSchema = validates<UserBare>().with({
   password: z.string().min(6).max(64),
   name: z.string().trim(),
   phone: z.string().trim().nullable(),
-  avatar: z.string().url().nullable(),
   admin: z.boolean(),
 })
 
 export const userInsertSchema = userSchema.omit({ id: true }).extend({
   phone: userSchema.shape.phone.default(null),
-  avatar: userSchema.shape.avatar.default(null),
   admin: userSchema.shape.admin.default(false),
 })
 

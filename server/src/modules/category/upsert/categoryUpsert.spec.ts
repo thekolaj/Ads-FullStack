@@ -7,9 +7,7 @@ const db = await createTestDatabase()
 const categoryRepository = db.getRepository(Category)
 
 describe('as admin', async () => {
-  const { upsert } = categoryRouter.createCaller(
-    authContext({ db }, { id: 1, admin: true })
-  )
+  const { upsert } = categoryRouter.createCaller(authContext({ db }, { id: 1, admin: true }))
   it('should save a category', async () => {
     const category = { title: 'new category' }
     await upsert(category)
@@ -34,8 +32,6 @@ describe('as admin', async () => {
 })
 
 it('should reject non-admin', async () => {
-  const { upsert } = categoryRouter.createCaller(
-    authContext({ db }, { id: 2, admin: false })
-  )
+  const { upsert } = categoryRouter.createCaller(authContext({ db }, { id: 2, admin: false }))
   await expect(upsert({ title: 'Good title' })).rejects.toThrow(/admin/i)
 })

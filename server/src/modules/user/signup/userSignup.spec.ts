@@ -21,7 +21,7 @@ it('should save a user', async () => {
       email: userExpected.email,
     },
   })
-  expect(userCreated).toEqual({
+  expect(userCreated).toMatchObject({
     id: expect.any(Number),
     email: userExpected.email,
     password: expect.not.stringContaining(userExpected.password),
@@ -33,6 +33,8 @@ it('should save a user', async () => {
     id: expect.any(Number),
     email: userExpected.email,
     name: userExpected.name,
+    admin: userExpected.admin,
+    phone: userExpected.phone,
   })
 
   expect(response.id).toEqual(userCreated!.id)
