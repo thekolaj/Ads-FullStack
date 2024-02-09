@@ -51,7 +51,7 @@ export class Ad {
   @OneToMany(() => Comment, (comment) => comment.ad)
   comments: Comment[]
 
-  @ManyToMany(() => Category)
+  @ManyToMany(() => Category, (category) => category.ads, { onDelete: 'CASCADE' })
   @JoinTable()
   categories: Category[]
 }

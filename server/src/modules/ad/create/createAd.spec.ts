@@ -1,7 +1,16 @@
 import { createTestDatabase } from '@tests/utils/database'
-import { createFakeUsers } from '@server/entities/test/fixtures'
+import { createFakeEntries } from '@server/entities/test/fixtures'
+import { Ad } from '@server/entities'
 
 // const db = await createTestDatabase()
-// console.log(await createFakeUsers(db))
+// const fakeEntries = await createFakeEntries(db)
+// const find = await db
+//   .getRepository(Ad)
+//   .createQueryBuilder('ad')
+//   .leftJoinAndSelect('ad.categories', 'categories')
+//   .where('categories.id = 3')
+//   .getMany()
+
+// console.log(find)
 
 it.todo('')

@@ -1,5 +1,5 @@
 import { validates } from '@server/utils/validation'
-import { Column, Entity, PrimaryGeneratedColumn, Unique, ManyToMany } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, Unique, ManyToMany, JoinTable } from 'typeorm'
 import { z } from 'zod'
 import { Ad } from '.'
 
@@ -12,7 +12,8 @@ export class Category {
   @Column('text')
   title: string
 
-  @ManyToMany(() => Ad)
+  @ManyToMany(() => Ad, (ad) => ad.categories, { onDelete: 'CASCADE' })
+  @JoinTable()
   ads: Ad[]
 }
 

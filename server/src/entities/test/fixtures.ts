@@ -52,14 +52,15 @@ const fakeCategories = [
   { title: 'Education & Learning' },
 ]
 
-const fakeAds = [
+export const fakeAds = [
   {
     title: 'Good Ad',
     text: 'Buy this now',
     images: [{ url: 'https://t.ly/' }, { url: 'https://t.ly/' }],
   },
   { title: 'Bad Ad', text: 'Buy this later', price: 1, images: [{ url: 'https://t.ly/' }] },
-  { title: 'Last Ad', text: "Don't buy this at all", price: 2.22 },
+  { title: 'Minimal Ad', text: 'Short' },
+  { title: 'Last Ad', text: "Don't buy this at all", price: 22.22 },
 ]
 
 export async function createFakeUsers(db: Database) {
@@ -72,10 +73,6 @@ export async function createFakeUsers(db: Database) {
 export async function createFakeCategories(db: Database) {
   return db.getRepository(Category).save(fakeCategories)
 }
-
-// export async function createFakeData(db: Database) {
-//   return db.getRepository(Ad).save()
-// }
 
 type FakeUsers = {
   email: string
@@ -92,4 +89,22 @@ export async function createFakeComments(adId: number, users: FakeUsers, db: Dat
     { adId, userId: users[2].id, ...fakeComments[2] },
     { adId, userId: users[3].id, ...fakeComments[3] },
   ])
+}
+
+export async function createFakeEntries(db: Database) {
+  const users = await createFakeUsers(db)
+  const categories = await createFakeCategories(db)
+  const ads = await db.getRepository(Ad).save([
+    { ...fakeAds[0], userId: users[0].id, categories: [categories[1], categories[2]] },
+    { ...fakeAds[1], userId: users[1].id, categories: [categories[3]] },
+    { ...fakeAds[2], userId: users[2].id },
+    {
+      ...fakeAds[3],
+      userId: users[3].id,
+      categories: [categories[2], categories[3], categories[4]],
+    },
+  ])
+  ads[1].comments = await createFakeComments(ads[1].id, users, db)
+  ads[2].comments = await createFakeComments(ads[2].id, users, db)
+  return { users, categories, ads }
 }
