@@ -11,6 +11,7 @@ export default publicProcedure
         categories: true,
         comments: { user: true },
       },
+      order: { comments: { createdAt: 'DESC' } },
       where: { id },
     })
   )

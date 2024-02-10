@@ -9,6 +9,7 @@ export default publicProcedure
       .createQueryBuilder('ad')
       .leftJoinAndSelect('ad.images', 'images')
       .leftJoinAndSelect('ad.categories', 'categories')
+      .orderBy('ad.updated_at', 'DESC')
 
     if (categoryId) query = query.andWhere('categories.id = :categoryId', { categoryId })
 
