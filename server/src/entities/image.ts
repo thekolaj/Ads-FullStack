@@ -13,6 +13,7 @@ export class Image {
 
   @ManyToOne(() => Ad, (ad) => ad.images, {
     onDelete: 'CASCADE',
+    orphanedRowAction: 'delete',
   })
   ad: Ad
 }

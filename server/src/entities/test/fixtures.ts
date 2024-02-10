@@ -52,6 +52,14 @@ const fakeCategories = [
   { title: 'Education & Learning' },
 ]
 
+export const fakeAd = {
+  title: 'new ad',
+  text: 'new text',
+  price: null,
+  images: [],
+  categories: [],
+}
+
 export const fakeAds = [
   {
     title: 'Good Ad',

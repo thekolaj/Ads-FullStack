@@ -8,7 +8,7 @@ export default authenticatedProcedure
     const adRepository = db.getRepository(Ad)
     const ad = await adRepository.findOneByOrFail({ id: adData.id })
 
-    if (!authUser.admin || ad.userId !== authUser.id) {
+    if (!authUser.admin && ad.userId !== authUser.id) {
       throw new TRPCError({
         code: 'FORBIDDEN',
         message: 'No access to edit this ad',

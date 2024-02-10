@@ -1,5 +1,5 @@
 import { createTestDatabase } from '@tests/utils/database'
-import { createFakeEntries } from '@server/entities/test/fixtures'
+import { createFakeEntries, fakeAd } from '@server/entities/test/fixtures'
 import { authContext } from '@tests/utils/context'
 import { Ad } from '@server/entities'
 import categoryRouter from '..'
@@ -8,14 +8,6 @@ const db = await createTestDatabase()
 const fakeEntries = await createFakeEntries(db)
 const adRepository = db.getRepository(Ad)
 const { create } = categoryRouter.createCaller(authContext({ db }, fakeEntries.users[0]))
-
-const fakeAd = {
-  title: 'new ad',
-  text: 'new text',
-  price: null,
-  images: [],
-  categories: [],
-}
 
 it('saves a valid ad with minimal input', async () => {
   const { title, text } = fakeAd
