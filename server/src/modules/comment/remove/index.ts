@@ -8,7 +8,7 @@ export default authenticatedProcedure
     const commentRepository = db.getRepository(Comment)
     const comment = await commentRepository.findOneByOrFail({ id })
 
-    if (!authUser.admin || comment.userId !== authUser.id) {
+    if (!authUser.admin && comment.userId !== authUser.id) {
       throw new TRPCError({
         code: 'FORBIDDEN',
         message: 'No access to delete this comment',

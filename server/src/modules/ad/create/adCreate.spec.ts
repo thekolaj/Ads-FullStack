@@ -17,7 +17,7 @@ const fakeAd = {
   categories: [],
 }
 
-it('should save a valid ad with minimal input', async () => {
+it('saves a valid ad with minimal input', async () => {
   const { title, text } = fakeAd
   const response = await create({ title, text })
   const ad = await adRepository.findOneOrFail({
@@ -31,7 +31,7 @@ it('should save a valid ad with minimal input', async () => {
   expect(ad).toMatchObject(fakeAd)
 })
 
-it('should save a valid ad with price', async () => {
+it('saves a valid ad with price', async () => {
   const newAd = { ...fakeAd, price: 9.99 }
   const response = await create(newAd)
   const ad = await adRepository.findOneOrFail({
@@ -44,9 +44,9 @@ it('should save a valid ad with price', async () => {
   expect(ad).toMatchObject(newAd)
 })
 
-it.todo('should round the price to two digits', async () => {})
+it.todo('rounds the price to two digits', async () => {})
 
-it('should save a valid ad with images', async () => {
+it('saves a valid ad with images', async () => {
   const newAd = { ...fakeAd, images: [{ url: 'https://imgs.xkcd.com/comics/sandwich.png' }] }
   const response = await create(newAd)
   const ad = await adRepository.findOneOrFail({
@@ -59,7 +59,7 @@ it('should save a valid ad with images', async () => {
   expect(ad).toMatchObject(newAd)
 })
 
-it('should save a valid ad with category id', async () => {
+it('saves a valid ad with category id', async () => {
   const newAd = { ...fakeAd, categories: [{ id: fakeEntries.categories[0].id }] }
   const response = await create(newAd)
   const ad = await adRepository.findOneOrFail({
@@ -72,10 +72,10 @@ it('should save a valid ad with category id', async () => {
   expect(ad).toMatchObject(newAd)
 })
 
-it('should require a valid image url', async () => {
+it('requires a valid image url', async () => {
   await expect(create({ ...fakeAd, images: [{ url: 'badUrl' }] })).rejects.toThrow(/url/i)
 })
 
-it('should require an existing category', async () => {
+it('requires an existing category', async () => {
   await expect(create({ ...fakeAd, categories: [{ id: 9999 }] })).rejects.toThrow(/category/i)
 })
