@@ -74,6 +74,7 @@ export const adUpdateSchema = adSchema
     images: imageUpsertSchema.array(),
     categories: categorySchema.pick({ id: true }).array(),
   })
+  .partial({ images: true, categories: true, price: true })
 
 export const adInsertSchema = adUpdateSchema.omit({ id: true })
 
@@ -81,3 +82,4 @@ export const adSearchSchema = adSchema
   .pick({ userId: true })
   .extend({ categoryId: z.number().int().positive() })
   .partial()
+  .optional()

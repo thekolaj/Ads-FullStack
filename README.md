@@ -18,9 +18,6 @@ npm run test:e2e -w client
 
 # back end tests with an in-memory database
 npm test -w server
-
-# back end tests with a development database
-npm run test:db -w server
 ```
 
 ## Running the server

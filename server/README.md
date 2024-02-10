@@ -18,13 +18,10 @@ npm run dev:mem
 
 ## Tests
 
-```bash
+````bash
 # runs tests against an in-memory pg-mem database
 npm test
 
-# runs tests with the configured database
-npm run test:db
-```
 
 In production mode:
 
@@ -40,4 +37,4 @@ npm run build
 
 # run the build
 npm run start
-```
+````

@@ -6,9 +6,10 @@ export default publicProcedure
   .query(async ({ input: { id }, ctx: { db } }) =>
     db.getRepository(Ad).findOneOrFail({
       relations: {
+        user: true,
         images: true,
-        comments: true,
         categories: true,
+        comments: { user: true },
       },
       where: { id },
     })

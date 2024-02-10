@@ -100,7 +100,7 @@ export async function createFakeEntries(db: Database) {
     { ...fakeAds[2], userId: users[2].id },
     {
       ...fakeAds[3],
-      userId: users[3].id,
+      userId: users[2].id,
       categories: [categories[2], categories[3], categories[4]],
     },
   ])
