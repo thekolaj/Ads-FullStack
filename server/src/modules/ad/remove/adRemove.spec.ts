@@ -11,37 +11,37 @@ const imageRepository = db.getRepository(Image)
 const commentRepository = db.getRepository(Comment)
 
 it('removes the ad', async () => {
-  const ad = await adRepository.findOneByOrFail({ title: 'Last Ad' })
+  const ad = await adRepository.findOneByOrFail({ id: fakeEntries.ads[3].id })
   const { remove } = categoryRouter.createCaller(
     authContext({ db }, { id: ad.userId, admin: false })
   )
-  expect(adRepository.count()).resolves.toBe(fakeEntries.ads.length)
+  await expect(adRepository.count()).resolves.toBe(fakeEntries.ads.length)
   await remove({ id: ad.id })
-  expect(adRepository.count()).resolves.toBe(fakeEntries.ads.length - 1)
+  await expect(adRepository.count()).resolves.toBe(fakeEntries.ads.length - 1)
 })
 
 it('removes images from database when removing the ad', async () => {
-  const ad = await adRepository.findOneByOrFail({ title: 'Good Ad' })
+  const ad = await adRepository.findOneByOrFail({ id: fakeEntries.ads[0].id })
   const { remove } = categoryRouter.createCaller(
     authContext({ db }, { id: ad.userId, admin: false })
   )
   const imageCount = await imageRepository.count()
   await remove({ id: ad.id })
-  expect(imageRepository.count()).resolves.toBe(imageCount - 2)
+  await expect(imageRepository.count()).resolves.toBe(imageCount - 2)
 })
 
 it('removes comments from database when removing the ad', async () => {
-  const ad = await adRepository.findOneByOrFail({ title: 'Minimal Ad' })
+  const ad = await adRepository.findOneByOrFail({ id: fakeEntries.ads[2].id })
   const { remove } = categoryRouter.createCaller(
     authContext({ db }, { id: ad.userId, admin: false })
   )
   const commentCount = await commentRepository.count()
   await remove({ id: ad.id })
-  expect(commentRepository.count()).resolves.toBe(commentCount - 4)
+  await expect(commentRepository.count()).resolves.toBe(commentCount - 4)
 })
 
 it('rejects user that does not own the ad', async () => {
-  const ad = await adRepository.findOneByOrFail({ title: 'Bad Ad' })
+  const ad = await adRepository.findOneByOrFail({ id: fakeEntries.ads[1].id })
   const { remove } = categoryRouter.createCaller(authContext({ db }, { id: 999, admin: false }))
   await expect(remove({ id: ad.id })).rejects.toThrow(/access/i)
 })

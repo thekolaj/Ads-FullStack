@@ -36,8 +36,6 @@ it('saves a valid ad with price', async () => {
   expect(ad).toMatchObject(newAd)
 })
 
-it.todo('rounds the price to two digits', async () => {})
-
 it('saves a valid ad with images', async () => {
   const newAd = { ...fakeAd, images: [{ url: 'https://imgs.xkcd.com/comics/sandwich.png' }] }
   const response = await create(newAd)

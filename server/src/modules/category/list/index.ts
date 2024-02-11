@@ -10,6 +10,7 @@ export default publicProcedure.query(async ({ ctx: { db } }) => {
       title: 'ASC',
     },
   })
+  // return category id, name, and how many ADs each category has.
   return categories.map((category) => ({
     adCount: category.ads.length,
     id: category.id,

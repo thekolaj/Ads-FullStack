@@ -40,16 +40,16 @@ const fakeComments = [
 ]
 
 const fakeCategories = [
-  { title: 'Automotive' },
-  { title: 'Real Estate' },
-  { title: 'Fashion & Apparel' },
-  { title: 'Electronics & Gadgets' },
-  { title: 'Home & Garden' },
-  { title: 'Health & Wellness' },
-  { title: 'Travel & Tourism' },
-  { title: 'Food & Beverage' },
-  { title: 'Entertainment & Events' },
-  { title: 'Education & Learning' },
+  { title: 'Adult' },
+  { title: 'Education' },
+  { title: 'Electronics' },
+  { title: 'Entertainment' },
+  { title: 'Fashion' },
+  { title: 'Food' },
+  { title: 'Health' },
+  { title: 'Home' },
+  { title: 'Transport' },
+  { title: 'Travel' },
 ]
 
 export const fakeAd = {
@@ -99,6 +99,8 @@ export async function createFakeComments(adId: number, users: FakeUsers, db: Dat
   ])
 }
 
+// Test make assumptions about what AD contains what and in what order then are returned.
+// Changing things here might break some test
 export async function createFakeEntries(db: Database) {
   const users = await createFakeUsers(db)
   const categories = await createFakeCategories(db)

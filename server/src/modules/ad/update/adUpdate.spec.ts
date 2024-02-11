@@ -38,7 +38,7 @@ it('adds an image to database', async () => {
     where: { id: response.id },
   })
   expect(ad).toMatchObject({ id: newAd.id, ...fakeAd, ...updates })
-  expect(imageRepository.count()).resolves.toBe(imageCount + 1)
+  await expect(imageRepository.count()).resolves.toBe(imageCount + 1)
 })
 
 it('removes an image from database', async () => {
@@ -54,7 +54,7 @@ it('removes an image from database', async () => {
     where: { id: response.id },
   })
   expect(ad).toMatchObject({ id: newAd.id, ...fakeAd, ...updates })
-  expect(imageRepository.count()).resolves.toBe(imageCount - 1)
+  await expect(imageRepository.count()).resolves.toBe(imageCount - 1)
 })
 
 it('update existing image in database', async () => {
@@ -70,7 +70,7 @@ it('update existing image in database', async () => {
     where: { id: response.id },
   })
   expect(ad).toMatchObject({ id: newAd.id, ...fakeAd, ...updates })
-  expect(imageRepository.count()).resolves.toBe(imageCount)
+  await expect(imageRepository.count()).resolves.toBe(imageCount)
 })
 
 it('adds a category', async () => {

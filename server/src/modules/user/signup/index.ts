@@ -16,7 +16,7 @@ export default publicProcedure
         comments,
         ...user
       } = await db.getRepository(User).save({ email, name, password: hash })
-
+      // filter out pass, ads, and comments. Return everything else
       return user
     } catch (error) {
       if (!(error instanceof Error)) {

@@ -11,9 +11,9 @@ const categoryRepository = db.getRepository(Category)
 describe('as admin', async () => {
   const { remove } = categoryRouter.createCaller(authContext({ db }, { id: 1, admin: true }))
   it('should remove a category', async () => {
-    expect(categoryRepository.count()).resolves.toBe(fakeEntries.categories.length)
+    await expect(categoryRepository.count()).resolves.toBe(fakeEntries.categories.length)
     await remove(fakeEntries.categories[9])
-    expect(categoryRepository.count()).resolves.toBe(fakeEntries.categories.length - 1)
+    await expect(categoryRepository.count()).resolves.toBe(fakeEntries.categories.length - 1)
   })
 
   it('should remove a category from ad relations', async () => {

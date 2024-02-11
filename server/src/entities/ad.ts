@@ -26,7 +26,7 @@ export class Ad {
   @Column('text')
   text: string
 
-  @Column('numeric', { nullable: true, precision: 2, scale: 2 })
+  @Column('numeric', { nullable: true, precision: 10, scale: 2 })
   price: number | null
 
   @CreateDateColumn()
