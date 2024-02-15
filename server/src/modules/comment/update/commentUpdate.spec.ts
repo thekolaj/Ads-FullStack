@@ -20,3 +20,13 @@ it('rejects user that does not own the comment', async () => {
   const comment = await commentRepository.findOneByOrFail({ userId: fakeEntries.users[1].id })
   await expect(update({ id: comment.id, text: 'New text!' })).rejects.toThrow(/access/i)
 })
+
+it('updates comment as admin', async () => {
+  const { update: adminUpdate } = categoryRouter.createCaller(
+    authContext({ db }, { id: 999, admin: true })
+  )
+  const comment = await commentRepository.findOneByOrFail({ userId: fakeEntries.users[1].id })
+  await adminUpdate({ id: comment.id, text: 'New text!!!' })
+  const newComment = await commentRepository.findOneByOrFail({ id: comment.id })
+  expect(newComment.text).toBe('New text!!!')
+})

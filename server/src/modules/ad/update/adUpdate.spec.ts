@@ -74,7 +74,7 @@ it('update existing image in database', async () => {
 })
 
 it('adds a category', async () => {
-  const newAd = await create({ ...fakeAd })
+  const newAd = await create(fakeAd)
   const updates = { categories: [fakeEntries.categories[0]] }
   const response = await update({ ...newAd, ...updates })
   const ad = await adRepository.findOneOrFail({
@@ -107,7 +107,25 @@ it('rejects user that does not own the ad', async () => {
   const { update: badUpdate } = categoryRouter.createCaller(
     authContext({ db }, { id: 999, admin: false })
   )
-  const newAd = await create({ ...fakeAd })
+  const newAd = await create(fakeAd)
 
   await expect(badUpdate(newAd)).rejects.toThrow(/access/i)
+})
+
+it('updates as admin', async () => {
+  const { update: adminUpdate } = categoryRouter.createCaller(
+    authContext({ db }, { id: 999, admin: true })
+  )
+  const newAd = await create(fakeAd)
+  const updates = { title: 'New Title!' }
+  const response = await adminUpdate({ ...newAd, ...updates })
+
+  const ad = await adRepository.findOneOrFail({
+    relations: {
+      images: true,
+      categories: true,
+    },
+    where: { id: response.id },
+  })
+  expect(ad).toMatchObject({ id: newAd.id, ...fakeAd, ...updates })
 })

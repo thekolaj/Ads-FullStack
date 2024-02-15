@@ -20,3 +20,13 @@ it('rejects user that does not own the comment', async () => {
   const comment = await commentRepository.findOneByOrFail({ userId: fakeEntries.users[1].id })
   await expect(remove({ id: comment.id })).rejects.toThrow(/access/i)
 })
+
+it('removes comment as admin', async () => {
+  const { remove: adminRemove } = categoryRouter.createCaller(
+    authContext({ db }, { id: 999, admin: true })
+  )
+  const comment = await commentRepository.findOneByOrFail({ userId: fakeEntries.users[1].id })
+  const commentCount = await commentRepository.count()
+  await adminRemove({ id: comment.id })
+  await expect(commentRepository.count()).resolves.toBe(commentCount - 1)
+})

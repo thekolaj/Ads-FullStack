@@ -45,3 +45,10 @@ it('rejects user that does not own the ad', async () => {
   const { remove } = categoryRouter.createCaller(authContext({ db }, { id: 999, admin: false }))
   await expect(remove({ id: ad.id })).rejects.toThrow(/access/i)
 })
+
+it('removes ad as admin', async () => {
+  const ad = await adRepository.findOneByOrFail({ id: fakeEntries.ads[1].id })
+  const { remove } = categoryRouter.createCaller(authContext({ db }, { id: 999, admin: true }))
+  await remove({ id: ad.id })
+  await expect(adRepository.findOneByOrFail({ id: fakeEntries.ads[1].id })).rejects.toThrow()
+})
