@@ -36,6 +36,8 @@ jobs:
         run: npm run type-check -w=client
 
       - name: Lint server
+        env:
+          TOKEN_KEY: ${{ secrets.TOKEN_KEY }}
         run: npm run lint -w=server
 
       - name: Lint client
