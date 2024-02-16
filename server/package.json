@@ -17,7 +17,7 @@
     "migration:show": "npm run typeorm migration:show -- -d src/database/cli/dataSource.ts",
     "start": "node ./dist/index.js",
     "test": "DB_TYPE=pg-mem vitest",
-    "typecheck": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "typeorm": "NODE_OPTIONS='-r tsconfig-paths/register' typeorm-ts-node-commonjs"
   },
   "keywords": [],
