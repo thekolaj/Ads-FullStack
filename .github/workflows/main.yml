@@ -59,7 +59,7 @@ jobs:
       # makes it run in the background. While it is starting up,
       # we will continue with other steps.
       - name: Start server for E2E tests
-        run: npm run start -w=server &
+        run: npm run dev -w=server &
         env:
           # Pass the same credentials to our server environment variables, just like
           # we would if we had an .env file.
@@ -78,20 +78,20 @@ jobs:
         run: npm run build -w=client
         env:
           VITE_API_ORIGIN: http://localhost:3000
-          VITE_API_PATH: /api/v1/trpc
+          VITE_API_PATH: /v1/trpc
 
       # Just to make sure that our server is up and running before
       # we start our E2E tests, we will use a health check action
       # which will make a request to the server and wait for it to
       # respond with a non-failing status code.
-      # This assumes we have a public /api/health endpoint in our
+      # This assumes we have a public /health endpoint in our
       # Express server that returns a non-failing status code.
       - name: Wait for server to startup
         uses: Jtalk/url-health-check-action@v3.2
         with:
           max-attempts: 5
           retry-delay: 5s
-          url: http://localhost:3000/api/health
+          url: http://localhost:3000/health
 
       - name: Test client E2E
         run: npm run test:e2e -w=client
