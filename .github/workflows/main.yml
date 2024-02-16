@@ -59,7 +59,7 @@ jobs:
       # makes it run in the background. While it is starting up,
       # we will continue with other steps.
       - name: Start server for E2E tests
-        run: npm run dev:static -w=server &
+        run: npm run dev -w=server &
         env:
           # Pass the same credentials to our server environment variables, just like
           # we would if we had an .env file.
