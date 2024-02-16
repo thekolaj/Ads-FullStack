@@ -48,15 +48,3 @@ npm run test:e2e -w client
 # back end tests with an in-memory database
 npm test -w server
 ```
-
-## Running the server
-
-In development mode:
-
-```bash
-# automatically restarts the server
-npm run dev
-
-# server can be started without a database
-npm run dev:mem
-```
