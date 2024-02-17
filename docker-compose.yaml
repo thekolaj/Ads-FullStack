@@ -1,20 +1,48 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:16.1-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ads
+    ports:
+      - '5432'
+    volumes:
+      - ads-db:/var/lib/postgresql/data
+
   server:
     build:
       context: .
       dockerfile: ./server/Dockerfile
+
+    env_file:
+      - ./server/.env
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: ads
+      PORT: 3000
     ports:
       - '3000'
+    depends_on:
+      - postgres
 
   client:
     build:
       context: .
       dockerfile: ./client/Dockerfile
+      args:
+        VITE_API_ORIGIN: http://localhost:3001
+        VITE_API_PATH: /v1/trpc
     environment:
       API_PROXY_PASS: http://server:3000
     ports:
       - '3001:80'
     depends_on:
       - server
+
+volumes:
+  ads-db:
