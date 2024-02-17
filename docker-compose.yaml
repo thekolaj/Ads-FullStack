@@ -36,7 +36,7 @@ services:
       dockerfile: ./client/Dockerfile
       args:
         VITE_API_ORIGIN: http://localhost:3001
-        VITE_API_PATH: /v1/trpc
+        VITE_API_PATH: /api/v1/trpc
     environment:
       API_PROXY_PASS: http://server:3000
     ports:

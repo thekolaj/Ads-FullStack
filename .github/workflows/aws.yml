@@ -63,14 +63,14 @@ jobs:
   #       run: npm run build -w=client
   #       env:
   #         VITE_API_ORIGIN: http://localhost:3000
-  #         VITE_API_PATH: /v1/trpc
+  #         VITE_API_PATH: /api/v1/trpc
 
   #     - name: Wait for server to startup
   #       uses: Jtalk/url-health-check-action@v3.2
   #       with:
   #         max-attempts: 5
   #         retry-delay: 5s
-  #         url: http://localhost:3000/health
+  #         url: http://localhost:3000/api/health
 
   #     - name: Test client E2E
   #       run: npm run test:e2e -w=client
@@ -88,7 +88,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     env:
       API_ORIGIN: ${{ vars.API_ORIGIN }}
-      API_PATH: /v1/trpc
+      API_PATH: /api/v1/trpc
       CLIENT_IMAGE_TAG: client-${{ github.sha }}
       SERVER_IMAGE_TAG: server-${{ github.sha }}
     steps:
@@ -186,7 +186,7 @@ jobs:
             "containerPort": 80,
             "healthCheck": {
               "intervalSeconds": 10,
-              "path": "/health"
+              "path": "/api/health"
             }
           }' > public-endpoint.json
 
