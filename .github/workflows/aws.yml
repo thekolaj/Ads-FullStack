@@ -159,6 +159,7 @@ jobs:
               },
               "environment": {
                 "API_PROXY_PASS": "http://localhost:3000"
+              }
             },
             "server": {
               "image": "${{ env.LIGHTSAIL_SERVER_IMAGE }}",
