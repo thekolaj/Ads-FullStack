@@ -9,8 +9,8 @@ jobs:
   #     postgres:
   #       image: postgres:16.1-alpine
   #       env:
-  #         POSTGRES_USER: turing
-  #         POSTGRES_PASSWORD: turing
+  #         POSTGRES_USER: testuser
+  #         POSTGRES_PASSWORD: testpass
   #         POSTGRES_DB: testdb
   #       ports:
   #         - 5432:5432
@@ -53,8 +53,8 @@ jobs:
   #     - name: Start server for E2E tests
   #       run: npm run dev -w=server &
   #       env:
-  #         DB_USER: turing
-  #         DB_PASSWORD: turing
+  #         DB_USER: testuser
+  #         DB_PASSWORD: testpass
   #         DB_NAME: testdb
   #         DB_HOST: localhost
   #         PORT: 3000
