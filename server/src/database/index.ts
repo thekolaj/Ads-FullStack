@@ -1,10 +1,10 @@
 import { join } from 'path'
-import { DataSource, type DataSourceOptions } from 'typeorm'
+import { DataSource } from 'typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { newDb } from 'pg-mem'
 import * as entities from '../entities'
 
-export function createDatabase(options: Partial<DataSourceOptions | { type: 'pg-mem' }> = {}) {
+export function createDatabase(options: Partial<{ type: 'pg-mem' | 'postgres' }> = {}) {
   // Run with an in-memory database.
   if (options.type === 'pg-mem') {
     return createMemoryDatabase()
