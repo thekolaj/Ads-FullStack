@@ -1,6 +1,6 @@
-import { appRouter } from '@server/modules'
+import { hashPass } from '@server/utils/hashPass'
 import type { Database } from '@server/database'
-import { Ad, Category, Comment } from '..'
+import { Ad, Category, Comment, User } from '..'
 
 export const fakeUsers = [
   {
@@ -72,10 +72,15 @@ export const fakeAds = [
 ]
 
 export async function createFakeUsers(db: Database) {
-  const {
-    user: { signup },
-  } = appRouter.createCaller({ db })
-  return Promise.all(fakeUsers.map(async (user) => signup(user)))
+  return Promise.all(
+    fakeUsers.map(async (user) => {
+      const hash = await hashPass(user.password)
+      const { password, ...newUser } = await db
+        .getRepository(User)
+        .save({ ...user, password: hash })
+      return newUser
+    })
+  )
 }
 
 export async function createFakeCategories(db: Database) {

@@ -3,7 +3,7 @@ import ad from './ad'
 import category from './category'
 import comment from './comment'
 import user from './user'
-import reset from './resetPreview'
+import reset from './resetPreviewEntries'
 
 export const appRouter = router({ ad, category, comment, user, reset })
 
