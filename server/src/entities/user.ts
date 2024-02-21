@@ -37,7 +37,7 @@ export const userSchema = validates<UserBare>().with({
   id: z.number().int().positive(),
   email: z.string().trim().toLowerCase().email(),
   password: z.string().min(6).max(64),
-  name: z.string().trim(),
+  name: z.string().trim().min(3).max(64),
   phone: z.string().trim().nullable(),
   admin: z.boolean(),
 })
