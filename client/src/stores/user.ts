@@ -2,6 +2,7 @@ import {
   clearStoredAccessToken,
   getStoredAccessToken,
   getUserIdFromToken,
+  getUserAdminFromToken,
   storeAccessToken,
 } from '@/utils/auth'
 import { trpc } from '@/trpc'
@@ -12,6 +13,10 @@ const authToken = ref(getStoredAccessToken(localStorage))
 
 export const authUserId = computed(() =>
   authToken.value ? getUserIdFromToken(authToken.value) : null
+)
+
+export const authUserAdmin = computed(() =>
+  authToken.value ? getUserAdminFromToken(authToken.value) : null
 )
 
 export const isLoggedIn = computed(() => !!authToken.value)
