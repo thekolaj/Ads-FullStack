@@ -2,7 +2,8 @@
 import { login } from '@/stores/user'
 import { ref } from 'vue'
 import PageForm from '@/components/PageForm.vue'
-import { FwbAlert, FwbButton, FwbInput } from 'flowbite-vue'
+import { FwbAlert, FwbButton, FwbInput, FwbAccordion } from 'flowbite-vue'
+import { FwbAccordionHeader, FwbAccordionPanel, FwbAccordionContent } from 'flowbite-vue'
 import { useRouter } from 'vue-router'
 import useErrorMessage from '@/composables/useErrorMessage'
 
@@ -48,6 +49,19 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
       </FwbAlert>
     </template>
   </PageForm>
+  <FwbAccordion flush :open-first-item="false">
+    <FwbAccordionPanel>
+      <FwbAccordionHeader>Demo Users</FwbAccordionHeader>
+      <FwbAccordionContent>
+        <h3>Admin:</h3>
+        <p>email: 'admin@admin.com'</p>
+        <p>password: 'admin123'</p>
+        <h3>User:</h3>
+        <p>email: 'first@user.org'</p>
+        <p>password: 'Password321'</p>
+      </FwbAccordionContent>
+    </FwbAccordionPanel>
+  </FwbAccordion>
 </template>
 
 <style scoped></style>
