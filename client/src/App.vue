@@ -13,7 +13,7 @@ const toggleDark = useToggle(isDark)
     <div class="head">
       <FwbHeading tag="h1">Ad List</FwbHeading>
       <div>
-        <FwbButton size="sm" pill @click="toggleDark()">
+        <FwbButton size="sm" color="light" pill @click="toggleDark()">
           {{ isDark ? 'Dark' : 'Light' }}
         </FwbButton>
       </div>
@@ -30,7 +30,6 @@ const toggleDark = useToggle(isDark)
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 10px 10% 0;
-  background-color: var(--background-color2);
+  padding: 10px 30px 0;
 }
 </style>

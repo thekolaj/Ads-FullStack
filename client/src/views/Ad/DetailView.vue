@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
+import { FwbHeading } from 'flowbite-vue'
 
 const route = useRoute()
 const adId = Number(route.params.id)
@@ -13,7 +14,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <h1>Details:</h1>
+  <fwb-heading tag="h2" class="title">Details:</fwb-heading>
   {{ ad }}
 </template>
 

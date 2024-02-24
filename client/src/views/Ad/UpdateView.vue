@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
+import { FwbHeading } from 'flowbite-vue'
 
 const route = useRoute()
 const adId = Number(route.params.id)

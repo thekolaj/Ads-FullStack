@@ -1,9 +1,7 @@
 @import url('./base.css');
 
 #app {
-  max-width: 1280px;
   min-height: 100%;
-  margin: 0 auto;
 }
 
 header,
@@ -12,8 +10,21 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px 10% 5px;
 }
 
-main {
-  padding: 0 10%;
+header {
+  background-color: var(--background-color2);
+}
+
+.head,
+main,
+nav {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.title {
+  width: auto;
+  padding-bottom: 20px;
 }

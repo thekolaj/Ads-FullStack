@@ -21,6 +21,7 @@ export async function handleError(errorMessage: Ref<string>, fn: Function, doRet
 
     return result
   } catch (error) {
+    console.log(error)
     errorMessage.value = getErrorMessage(error)
 
     if (doRethrow) throw error
@@ -47,6 +48,5 @@ function getErrorMessage(error: unknown) {
   if (!(error instanceof TRPCClientError)) {
     return error.message
   }
-
-  return error.data.message || error.message
+  return error.data?.message || error.message
 }

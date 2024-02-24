@@ -1,20 +1,39 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { trpc } from '@/trpc'
-import { FwbButton } from 'flowbite-vue'
+import { FwbButton, FwbHeading, FwbAlert } from 'flowbite-vue'
+import AlertError from '@/components/AlertError.vue'
+import useErrorMessage from '@/composables/useErrorMessage'
 
-async function reset() {
+const hasSucceeded = ref(false)
+
+const [reset, errorMessage] = useErrorMessage(async () => {
   await trpc.reset.mutate()
-}
+  hasSucceeded.value = true
+})
 </script>
 
 <template>
-  <p>You can reset the database to it's default demo entries by clicking the button below</p>
-  <FwbButton @click="reset">Reset</FwbButton>
+  <div>
+    <fwb-heading tag="h2" class="title">Reset:</fwb-heading>
+
+    <p>You can reset the database to it's default demo entries by clicking the button below</p>
+    <FwbButton @click="reset">Reset</FwbButton>
+    <FwbAlert v-if="hasSucceeded" data-testid="successMessage" type="success">
+      Reset successful!
+    </FwbAlert>
+    <AlertError :message="errorMessage">
+      {{ errorMessage }}
+    </AlertError>
+  </div>
 </template>
 
 <style scoped>
-p {
-  margin-top: 20vh;
-  margin-bottom: 5vh;
+div {
+  text-align: center;
+}
+
+button {
+  margin: 20px;
 }
 </style>
