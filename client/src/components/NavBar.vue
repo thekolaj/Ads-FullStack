@@ -63,3 +63,10 @@ function logoutUser() {
     </template>
   </FwbNavbar>
 </template>
+
+<style scoped>
+nav {
+  width: 100%;
+  background-color: var(--background-color2) !important;
+}
+</style>

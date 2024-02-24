@@ -30,10 +30,7 @@ const toggleDark = useToggle(isDark)
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 10px 5% 0;
-}
-
-nav {
-  width: 100%;
+  padding: 10px 10% 0;
+  background-color: var(--background-color2);
 }
 </style>

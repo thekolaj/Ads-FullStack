@@ -1,19 +1,23 @@
 :root {
   --light-text: #3c3c43;
   --light-background: #ffffff;
+  --light-background2: #f6f6f7;
   --dark-text: #deded6;
   --dark-background: #1b1b1f;
+  --dark-background2: #161618;
 }
 
 /* Theme colors */
 :root:not(.dark) {
   --text-color: var(--light-text);
   --background-color: var(--light-background);
+  --background-color2: var(--light-background2);
 }
 
 :root.dark {
   --text-color: var(--dark-text);
   --background-color: var(--dark-background);
+  --background-color2: var(--dark-background2);
 }
 
 *,

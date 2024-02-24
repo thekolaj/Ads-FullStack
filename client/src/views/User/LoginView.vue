@@ -2,7 +2,7 @@
 import { login } from '@/stores/user'
 import { ref } from 'vue'
 import PageForm from '@/components/PageForm.vue'
-import { FwbAlert, FwbButton, FwbInput, FwbAccordion } from 'flowbite-vue'
+import { FwbAlert, FwbButton, FwbInput, FwbHeading, FwbAccordion } from 'flowbite-vue'
 import { FwbAccordionHeader, FwbAccordionPanel, FwbAccordionContent } from 'flowbite-vue'
 import { useRouter } from 'vue-router'
 import useErrorMessage from '@/composables/useErrorMessage'
@@ -44,8 +44,8 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
         <RouterLink
           :to="{ name: 'Signup' }"
           class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >Sign up</RouterLink
-        >
+          >Sign up
+        </RouterLink>
       </FwbAlert>
     </template>
   </PageForm>
@@ -53,12 +53,18 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
     <FwbAccordionPanel>
       <FwbAccordionHeader>Demo Users</FwbAccordionHeader>
       <FwbAccordionContent>
-        <h3>Admin:</h3>
+        <FwbHeading tag="h4">Admin:</FwbHeading>
         <p>email: 'admin@admin.com'</p>
-        <p>password: 'admin123'</p>
-        <h3>User:</h3>
+        <p>password: 'Admin123'</p>
+        <FwbHeading tag="h4">User:</FwbHeading>
         <p>email: 'first@user.org'</p>
         <p>password: 'Password321'</p>
+        <FwbHeading tag="h4">Reset:</FwbHeading>
+        <RouterLink
+          :to="{ name: 'Reset' }"
+          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          >Reset Database Here</RouterLink
+        >
       </FwbAccordionContent>
     </FwbAccordionPanel>
   </FwbAccordion>

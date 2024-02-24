@@ -8,6 +8,13 @@ async function reset() {
 </script>
 
 <template>
-  <h1>Ad list!</h1>
+  <p>You can reset the database to it's default demo entries by clicking the button below</p>
   <FwbButton @click="reset">Reset</FwbButton>
 </template>
+
+<style scoped>
+p {
+  margin-top: 20vh;
+  margin-bottom: 5vh;
+}
+</style>
