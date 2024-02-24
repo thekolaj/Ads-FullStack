@@ -62,7 +62,7 @@ export const adSchema = validates<AdBare>().with({
   id: z.number().int().positive(),
   title: z.string().min(1).max(64),
   text: z.string().min(1).max(999),
-  price: z.number().positive().nullable(),
+  price: z.number().nonnegative('Price must be greater than or equal to 0').nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
   userId: z.number().int().positive(),

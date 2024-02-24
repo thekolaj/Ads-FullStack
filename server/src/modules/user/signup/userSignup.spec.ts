@@ -45,7 +45,7 @@ it('should require a valid email', async () => {
     signup({
       email: 'user-email-invalid',
       name: 'User',
-      password: 'password.123',
+      password: 'Password.123',
     })
   ).rejects.toThrow(/email/i)
 })
@@ -54,13 +54,13 @@ it('should require a unique email', async () => {
   await signup({
     email: 'duplicate@email.com',
     name: 'User',
-    password: 'password.123',
+    password: 'Password.123',
   })
   await expect(
     signup({
       email: 'duplicate@email.com',
       name: 'User',
-      password: 'password.123',
+      password: 'Password.123',
     })
   ).rejects.toThrow(/email/i)
 })
@@ -70,9 +70,39 @@ it('should require a password with at least 6 characters', async () => {
     signup({
       email: 'user2@domain.com',
       name: 'User',
-      password: 'p.123',
+      password: 'pP123',
     })
   ).rejects.toThrow(/password/i)
+})
+
+it('should require a password with an Uppercase character', async () => {
+  await expect(
+    signup({
+      email: 'user2@domain.com',
+      name: 'User',
+      password: 'p1234567',
+    })
+  ).rejects.toThrow(/Uppercase/i)
+})
+
+it('should require a password with a Lowercase character', async () => {
+  await expect(
+    signup({
+      email: 'user2@domain.com',
+      name: 'User',
+      password: 'P1234567',
+    })
+  ).rejects.toThrow(/Lowercase/i)
+})
+
+it('should require a password with a digit', async () => {
+  await expect(
+    signup({
+      email: 'user2@domain.com',
+      name: 'User',
+      password: 'Password',
+    })
+  ).rejects.toThrow(/digit/i)
 })
 
 it('stores lowercased email', async () => {

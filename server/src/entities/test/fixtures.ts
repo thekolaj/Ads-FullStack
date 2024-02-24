@@ -5,7 +5,7 @@ import { Ad, Category, Comment, User } from '..'
 export const fakeUsers = [
   {
     email: 'admin@admin.com',
-    password: 'admin123',
+    password: 'Admin123',
     name: 'admin',
     phone: '+123456',
     admin: true,
@@ -26,7 +26,7 @@ export const fakeUsers = [
   },
   {
     email: 'LastOne@latest.end',
-    password: '4kdoic9342icw93-34',
+    password: '4Kdoic9342icw93-34',
     name: 'FriendlyUser',
     admin: false,
   },

@@ -36,8 +36,18 @@ export type UserBare = Omit<User, 'ads' | 'comments'>
 export const userSchema = validates<UserBare>().with({
   id: z.number().int().positive(),
   email: z.string().trim().toLowerCase().email(),
-  password: z.string().min(6).max(64),
-  name: z.string().trim().min(3).max(64),
+  password: z
+    .string()
+    .min(6, 'Password must bet at least 6 characters')
+    .max(64, 'Password must bet at most 64 characters')
+    .regex(/[A-Z]/, 'Password must have an Uppercase characters')
+    .regex(/[a-z]/, 'Password must have a Lowercase characters')
+    .regex(/[0-9]/, 'Password must have a digit'),
+  name: z
+    .string()
+    .trim()
+    .min(3, { message: 'Name must bet at least 3 characters' })
+    .max(64, { message: 'Name must bet at most 64 characters' }),
   phone: z.string().trim().nullable(),
   admin: z.boolean(),
 })

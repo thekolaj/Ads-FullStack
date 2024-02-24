@@ -1,10 +1,12 @@
+import { hashPass } from '@server/utils/hashPass'
 import userRouter from '..'
 
+const PASSWORD_CORRECT = 'Password.123'
 const userSeed = {
   id: 12345,
   email: 'existing@user.com',
   admin: false,
-  password: '$2b$10$sD53fzWIQBjXWfSDzuwmMOyY1ZAygLpRZlLxxPhcNG5r9BFWrNaDC',
+  password: await hashPass(PASSWORD_CORRECT),
 }
 
 const db = {
@@ -14,8 +16,6 @@ const db = {
 }
 
 const { login } = userRouter.createCaller({ db } as any)
-
-const PASSWORD_CORRECT = 'password.123'
 
 it('returns a token if the password matches', async () => {
   const { accessToken } = await login({
