@@ -18,7 +18,7 @@ onBeforeMount(async () => {
 
 <template>
   <AdList v-if="user" heading="User:" :ads="ads">
-    <div>
+    <div class="info">
       <fwb-p class="font-bold">
         Name: {{ user.name }} <fwb-badge v-if="user.admin" class="inline">Admin</fwb-badge>
       </fwb-p>
@@ -28,4 +28,8 @@ onBeforeMount(async () => {
   </AdList>
 </template>
 
-<style scoped></style>
+<style scoped>
+.info {
+  margin-bottom: 20px;
+}
+</style>

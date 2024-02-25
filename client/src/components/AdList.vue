@@ -22,19 +22,17 @@ defineProps<{
 <template>
   <fwb-heading tag="h2" class="title">{{ heading }}</fwb-heading>
   <slot />
-  <div v-for="ad in ads" :key="ad.id">{{ ad }}</div>
   <fwb-table v-if="ads.length" hoverable>
     <FwbTableHead>
       <FwbTableHeadCell>Image</FwbTableHeadCell>
       <FwbTableHeadCell>Description</FwbTableHeadCell>
       <FwbTableHeadCell>Price</FwbTableHeadCell>
-      <FwbTableHeadCell>Edit</FwbTableHeadCell>
     </FwbTableHead>
     <fwb-table-body>
       <fwb-table-row
         v-for="ad in ads"
         :key="ad.id"
-        @click="$router.push({ name: 'AdDetail', params: { id: ad.id } })"
+        @click.stop="$router.push({ name: 'AdDetail', params: { id: ad.id } })"
       >
         <fwb-table-cell>image</fwb-table-cell>
         <fwb-table-cell>
@@ -43,7 +41,6 @@ defineProps<{
           <div>{{ localeDate(ad.updatedAt) }}</div>
         </fwb-table-cell>
         <fwb-table-cell><span v-if="ad.price">€</span> {{ ad.price }}</fwb-table-cell>
-        <fwb-table-cell>edit</fwb-table-cell>
       </fwb-table-row>
     </fwb-table-body>
   </fwb-table>
