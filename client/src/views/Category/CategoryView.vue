@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
+import AdList from '@/components/AdList.vue'
 import { FwbHeading } from 'flowbite-vue'
 
 const route = useRoute()
@@ -16,9 +17,9 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <fwb-heading tag="h2" class="title">Category:</fwb-heading>
-  {{ category }}
-  <div v-for="ad in ads" :key="ad.id">{{ ad }}</div>
+  <AdList v-if="category" heading="Category:" :ads="ads">
+    <FwbHeading tag="h3" class="title">{{ category.title }}</FwbHeading>
+  </AdList>
 </template>
 
 <style scoped></style>

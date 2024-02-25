@@ -2,7 +2,8 @@
 import { useRoute } from 'vue-router'
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
-import { FwbHeading } from 'flowbite-vue'
+import AdList from '@/components/AdList.vue'
+import { FwbBadge, FwbP } from 'flowbite-vue'
 
 const route = useRoute()
 const userId = Number(route.params.id)
@@ -16,9 +17,15 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <fwb-heading tag="h2" class="title">User:</fwb-heading>
-  {{ user }}
-  <div v-for="ad in ads" :key="ad.id">{{ ad }}</div>
+  <AdList v-if="user" heading="User:" :ads="ads">
+    <div>
+      <fwb-p class="font-bold">
+        Name: {{ user.name }} <fwb-badge v-if="user.admin" class="inline">Admin</fwb-badge>
+      </fwb-p>
+      <fwb-p class="font-bold"> Email: {{ user.email }} </fwb-p>
+      <fwb-p class="font-bold"> Phone: {{ user.phone }} </fwb-p>
+    </div>
+  </AdList>
 </template>
 
 <style scoped></style>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
-import { FwbNavbar, FwbNavbarCollapse, FwbNavbarLink } from 'flowbite-vue'
+import { FwbNavbar, FwbNavbarCollapse, FwbNavbarLink, FwbBadge } from 'flowbite-vue'
 import { authUserId, logout } from '@/stores/user'
 import { trpc } from '@/trpc'
 
@@ -43,10 +43,21 @@ function logoutUser() {
         </FwbNavbarLink>
         <template v-if="user">
           <!-- prettier-ignore -->
-          <FwbNavbarLink :link="({ name: 'Profile' } as any)" link-attr="to" component="RouterLink">
-            User: {{ user.name }}
+          <FwbNavbarLink
+            :link="({ name: 'User', params: { id: user.id } } as any)"
+            link-attr="to"
+            component="RouterLink">
+            My Ads
           </FwbNavbarLink>
           <FwbNavbarLink @click.prevent="logoutUser" link="#">Logout</FwbNavbarLink>
+          <!-- prettier-ignore -->
+          <FwbNavbarLink
+            :link="({ name: 'Profile' } as any)"
+            link-attr="to"
+            component="RouterLink">
+            User: {{ user.name }}
+            <fwb-badge v-if="user.admin" class="inline">Admin</fwb-badge>
+          </FwbNavbarLink>
         </template>
 
         <template v-else>
