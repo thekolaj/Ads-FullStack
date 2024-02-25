@@ -2,6 +2,7 @@
 import localeDate from '@/utils/localeDate'
 import type { Ad } from '@mono/server/src/shared/entities'
 import CategoryBadges from '@/components/CategoryBadges.vue'
+import ImageThumbnail from '@/components/ImageThumbnail.vue'
 import {
   FwbP,
   FwbHeading,
@@ -34,7 +35,7 @@ defineProps<{
         :key="ad.id"
         @click.stop="$router.push({ name: 'AdDetail', params: { id: ad.id } })"
       >
-        <fwb-table-cell>image</fwb-table-cell>
+        <fwb-table-cell><ImageThumbnail :images="ad.images"></ImageThumbnail></fwb-table-cell>
         <fwb-table-cell>
           <FwbP class="font-bold">{{ ad.title }}</FwbP>
           <CategoryBadges :categories="ad.categories"></CategoryBadges>
@@ -46,5 +47,3 @@ defineProps<{
   </fwb-table>
   <fwb-heading v-else tag="h3" class="title">No Ads</fwb-heading>
 </template>
-
-<style scoped></style>

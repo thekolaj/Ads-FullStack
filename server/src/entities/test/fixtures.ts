@@ -69,6 +69,26 @@ export const fakeAds = [
   { title: 'Bad Ad', text: 'Buy this later', price: 1, images: [{ url: 'https://t.ly/' }] },
   { title: 'Minimal Ad', text: 'Short' },
   { title: 'Last Ad', text: "Don't buy this at all", price: 22.22 },
+  {
+    title: 'Painting from my grandmother',
+    text: 'Classic painting of a meme',
+    price: 500,
+    images: [
+      {
+        url: 'https://render.fineartamerica.com/images/images-profile-flow/400/images/artworkimages/mediumlarge/2/naughty-japanese-dog-jing-kong.jpg',
+      },
+    ],
+  },
+  {
+    title: 'Old broken mouse',
+    text: 'Old broken mouse. For parts only.',
+    price: 5.99,
+    images: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Old_Computer_Mouse.jpg/768px-Old_Computer_Mouse.jpg',
+      },
+    ],
+  },
 ]
 
 export async function createFakeUsers(db: Database) {
@@ -118,6 +138,8 @@ export async function createFakeEntries(db: Database) {
       userId: users[2].id,
       categories: [categories[2], categories[3], categories[4]],
     },
+    { ...fakeAds[4], userId: users[1].id },
+    { ...fakeAds[5], userId: users[1].id },
   ])
   ads[1].comments = await createFakeComments(ads[1].id, users, db)
   ads[2].comments = await createFakeComments(ads[2].id, users, db)
