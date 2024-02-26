@@ -37,3 +37,5 @@ export function logout() {
 }
 
 export const signup = trpc.user.signup.mutate
+
+export const update = trpc.user.update.mutate

@@ -18,8 +18,8 @@ export class User {
   @Column('text')
   name: string
 
-  @Column('text', { nullable: true })
-  phone: string | null
+  @Column('text', { default: '' })
+  phone: string
 
   @Column('boolean', { default: false })
   admin: boolean
@@ -35,7 +35,7 @@ export type UserBare = Omit<User, 'ads' | 'comments'>
 
 export const userSchema = validates<UserBare>().with({
   id: z.number().int().positive(),
-  email: z.string().trim().toLowerCase().email(),
+  email: z.string().trim().toLowerCase().email('Invalid Email'),
   password: z
     .string()
     .min(6, 'Password must bet at least 6 characters')
@@ -46,18 +46,15 @@ export const userSchema = validates<UserBare>().with({
   name: z
     .string()
     .trim()
-    .min(3, { message: 'Name must bet at least 3 characters' })
-    .max(64, { message: 'Name must bet at most 64 characters' }),
-  phone: z.string().trim().nullable(),
+    .min(3, 'Name must bet at least 3 characters')
+    .max(64, 'Name must bet at most 64 characters'),
+  phone: z.string().trim().max(16, 'Phone number length 16 characters max'),
   admin: z.boolean(),
 })
 
-export const userInsertSchema = userSchema.omit({ id: true }).extend({
-  phone: userSchema.shape.phone.default(null),
-  admin: userSchema.shape.admin.default(false),
-})
+export const userInsertSchema = userSchema.pick({ email: true, name: true, password: true })
 
-export const userUpdateSchema = userSchema.omit({ password: true })
+export const userUpdateSchema = userSchema.omit({ password: true, admin: true })
 
 export type AuthUser = Pick<User, 'id' | 'admin'>
 

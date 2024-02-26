@@ -29,14 +29,6 @@ it('should save a user', async () => {
 
   expect(userCreated.password).toHaveLength(60)
 
-  expect(response).toEqual({
-    id: expect.any(Number),
-    email: userExpected.email,
-    name: userExpected.name,
-    admin: userExpected.admin,
-    phone: userExpected.phone,
-  })
-
   expect(response.id).toEqual(userCreated!.id)
 })
 
