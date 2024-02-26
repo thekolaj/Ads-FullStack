@@ -64,9 +64,17 @@ export const fakeAds = [
   {
     title: 'Good Ad',
     text: 'Buy this now',
-    images: [{ url: 'https://t.ly/' }, { url: 'https://t.ly/' }],
+    images: [
+      { url: 'https://teachlikeachampion.org/wp-content/uploads/good2.jpg' },
+      { url: 'https://thumb.ac-illust.com/31/31829d1be0a1381998bbbcd5f3beb181_t.jpeg' },
+    ],
   },
-  { title: 'Bad Ad', text: 'Buy this later', price: 1, images: [{ url: 'https://t.ly/' }] },
+  {
+    title: 'Bad Ad',
+    text: 'Buy this later',
+    price: 1,
+    images: [{ url: 'https://cdn.iconscout.com/icon/free/png-256/free-emoji-385-895837.png' }],
+  },
   { title: 'Minimal Ad', text: 'Short' },
   { title: 'Last Ad', text: "Don't buy this at all", price: 22.22 },
   {
