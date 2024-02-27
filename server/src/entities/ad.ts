@@ -57,6 +57,7 @@ export class Ad {
 }
 
 export type AdBare = Omit<Ad, 'user' | 'comments' | 'images' | 'categories'>
+export type AdUpsert = Pick<Ad, 'id' | 'title' | 'text' | 'price' | 'images' | 'categories'>
 
 export const adSchema = validates<AdBare>().with({
   id: z.number().int().positive(),
@@ -71,6 +72,7 @@ export const adSchema = validates<AdBare>().with({
 export const adUpdateSchema = adSchema
   .omit({ userId: true, createdAt: true, updatedAt: true })
   .extend({
+    price: z.preprocess((arg) => (arg === '' ? null : arg), adSchema.shape.price),
     images: imageUpsertSchema.array(),
     categories: categorySchema.pick({ id: true }).array(),
   })

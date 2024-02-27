@@ -47,6 +47,8 @@ const [submitUpdate, errorMessage] = useErrorMessage(async () => {
       <div class="grid">
         <FwbButton color="default" type="submit" size="xl">Update Profile</FwbButton>
       </div>
+    </template>
+    <template #footer>
       <FwbAlert v-if="hasSucceeded" data-testid="successMessage" type="success">
         Profile update successful
       </FwbAlert>

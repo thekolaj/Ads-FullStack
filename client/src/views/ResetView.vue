@@ -8,6 +8,7 @@ import useErrorMessage from '@/composables/useErrorMessage'
 const hasSucceeded = ref(false)
 
 const [reset, errorMessage] = useErrorMessage(async () => {
+  hasSucceeded.value = false
   await trpc.reset.mutate()
   hasSucceeded.value = true
 })

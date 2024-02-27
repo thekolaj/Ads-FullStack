@@ -15,8 +15,8 @@ const userForm = ref({
 const hasSucceeded = ref(false)
 
 const [submitSignup, errorMessage] = useErrorMessage(async () => {
+  hasSucceeded.value = false
   await signup(userForm.value)
-
   hasSucceeded.value = true
 })
 </script>
