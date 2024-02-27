@@ -10,6 +10,7 @@ export default publicProcedure
       .leftJoinAndSelect('ad.images', 'images')
       .leftJoinAndSelect('ad.categories', 'categories')
       .orderBy('ad.updated_at', 'DESC')
+      .addOrderBy('images.id')
 
     // Conditional WHERE clauses depend on parameters passed in.
     if (categoryId) query = query.andWhere('categories.id = :categoryId', { categoryId })
