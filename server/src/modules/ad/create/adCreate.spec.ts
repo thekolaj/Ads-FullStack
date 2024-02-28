@@ -10,8 +10,7 @@ const adRepository = db.getRepository(Ad)
 const { create } = categoryRouter.createCaller(authContext({ db }, fakeEntries.users[0]))
 
 it('saves a valid ad with minimal input', async () => {
-  const { title, text } = fakeAd
-  const response = await create({ title, text })
+  const response = await create(fakeAd)
   const ad = await adRepository.findOneOrFail({
     relations: {
       images: true,
@@ -49,8 +48,8 @@ it('saves a valid ad with images', async () => {
   expect(ad).toMatchObject(newAd)
 })
 
-it('saves a valid ad with category id', async () => {
-  const newAd = { ...fakeAd, categories: [{ id: fakeEntries.categories[0].id }] }
+it('saves a valid ad with category', async () => {
+  const newAd = { ...fakeAd, categories: [fakeEntries.categories[0]] }
   const response = await create(newAd)
   const ad = await adRepository.findOneOrFail({
     relations: {
@@ -67,5 +66,7 @@ it('requires a valid image url', async () => {
 })
 
 it('requires an existing category', async () => {
-  await expect(create({ ...fakeAd, categories: [{ id: 9999 }] })).rejects.toThrow(/category/i)
+  await expect(create({ ...fakeAd, categories: [{ id: 9999, title: 'BadCat' }] })).rejects.toThrow(
+    /category/i
+  )
 })

@@ -57,7 +57,6 @@ export class Ad {
 }
 
 export type AdBare = Omit<Ad, 'user' | 'comments' | 'images' | 'categories'>
-export type AdUpsert = Pick<Ad, 'id' | 'title' | 'text' | 'price' | 'images' | 'categories'>
 
 export const adSchema = validates<AdBare>().with({
   id: z.number().int().positive(),
@@ -75,9 +74,10 @@ export const adUpdateSchema = adSchema
     // HTML number input return empty string on empty input. We convert it to `null`
     price: z.preprocess((arg) => (arg === '' ? null : arg), adSchema.shape.price),
     images: imageUpsertSchema.array(),
-    categories: categorySchema.pick({ id: true }).array(),
+    categories: categorySchema.array(),
   })
-  .partial({ images: true, categories: true, price: true })
+
+export type AdUpsert = z.infer<typeof adUpdateSchema>
 
 export const adInsertSchema = adUpdateSchema.omit({ id: true })
 

@@ -4,11 +4,10 @@ import categoryRouter from '..'
 
 const db = await createTestDatabase()
 
-it('returns a list of categories with their ad count', async () => {
+it('returns a list of categories', async () => {
   const fakeEntries = await createFakeEntries(db)
   const { list } = categoryRouter.createCaller({ db })
   const categories = await list()
 
-  expect(categories).toHaveLength(fakeEntries.categories.length)
-  expect(categories.find((entry) => entry.id === fakeEntries.categories[1].id)?.adCount).toBe(1)
+  expect(categories).toEqual(fakeEntries.categories)
 })

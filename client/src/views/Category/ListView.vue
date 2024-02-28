@@ -3,9 +3,9 @@ import { trpc } from '@/trpc'
 import { onBeforeMount, ref } from 'vue'
 import { FwbHeading, FwbTable, FwbTableBody, FwbTableCell, FwbTableRow } from 'flowbite-vue'
 
-const categories = ref<Awaited<ReturnType<typeof trpc.category.list.query>>>([])
+const categories = ref<Awaited<ReturnType<typeof trpc.category.listWithCount.query>>>([])
 onBeforeMount(async () => {
-  categories.value = await trpc.category.list.query()
+  categories.value = await trpc.category.listWithCount.query()
 })
 </script>
 

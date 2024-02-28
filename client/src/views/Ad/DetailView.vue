@@ -67,6 +67,8 @@ const deleteFunction = async () => {
     </div>
     <div class="body">
       <fwb-p>{{ ad.text }}</fwb-p>
+      <hr />
+      <fwb-p class="font-bold"> Prince: {{ ad.price }} </fwb-p>
       <CategoryBadges :categories="ad.categories"></CategoryBadges>
       <fwb-p class="fade">Ad Updated: {{ localeDate(ad.updatedAt) }}</fwb-p>
       <fwb-p class="fade">Ad Created: {{ localeDate(ad.createdAt) }}</fwb-p>
