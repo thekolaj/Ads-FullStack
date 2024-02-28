@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { localeDate } from '@/utils/'
 import type { Ad } from '@mono/server/src/shared/entities'
-import CategoryBadges from '@/components/CategoryBadges.vue'
-import ImageThumbnail from '@/components/ImageThumbnail.vue'
+import CategoryBadges from './CategoryBadges.vue'
+import ImageThumbnail from './ImageThumbnail.vue'
 import {
   FwbP,
   FwbHeading,
