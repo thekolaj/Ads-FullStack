@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref, computed } from 'vue'
 import {
   FwbHeading,
   FwbP,
+  FwbButton,
   FwbCarousel,
   FwbTimeline,
   FwbTimelineBody,
@@ -16,9 +17,12 @@ import {
 } from 'flowbite-vue'
 import CategoryBadges from '@/components/CategoryBadges.vue'
 import LinkToUser from '@/components/LinkToUser.vue'
+import DeleteWithConfirmationBtn from '@/components/DeleteWithConfirmationBtn.vue'
+import { authUserAdmin, authUserId } from '@/stores/user'
 import { localeDate } from '@/utils/'
 
 const route = useRoute()
+const router = useRouter()
 const adId = Number(route.params.id)
 
 const ad = ref<Awaited<ReturnType<typeof trpc.ad.detail.query>>>()
@@ -32,11 +36,31 @@ const pictures = computed(() =>
     alt: 'User Image',
   }))
 )
+
+const editVisible = computed(() => authUserAdmin.value || authUserId.value === ad.value?.userId)
+
+const deleteFunction = async () => {
+  await trpc.ad.remove.mutate({ id: adId })
+  router.push({ name: 'Home' })
+}
 </script>
 
 <template>
   <template v-if="ad">
     <fwb-heading tag="h2" class="title">Details:</fwb-heading>
+    <div v-if="editVisible">
+      <!-- prettier-ignore -->
+      <FwbButton
+        color="light"
+        tag="router-link"
+        :href="(({ name: 'AdUpdate', params: { id: ad.id } }) as any)"
+        pill
+        >Edit📝</FwbButton
+      >
+      <DeleteWithConfirmationBtn heading="Delete this Ad?" :deleteFunction="deleteFunction"
+        >Delete🗑️</DeleteWithConfirmationBtn
+      >
+    </div>
     <fwb-heading tag="h3" class="title">{{ ad.title }}</fwb-heading>
     <div class="images">
       <FwbCarousel v-if="pictures?.length" :pictures="pictures" />

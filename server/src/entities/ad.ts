@@ -63,7 +63,7 @@ export const adSchema = validates<AdBare>().with({
   id: z.number().int().positive(),
   title: z.string().min(1).max(64),
   text: z.string().min(1).max(999),
-  price: z.number().nonnegative('Price must be greater than or equal to 0').nullable(),
+  price: z.coerce.number().nonnegative('Price must be greater than or equal to 0').nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
   userId: z.number().int().positive(),
@@ -72,6 +72,7 @@ export const adSchema = validates<AdBare>().with({
 export const adUpdateSchema = adSchema
   .omit({ userId: true, createdAt: true, updatedAt: true })
   .extend({
+    // HTML number input return empty string on empty input. We convert it to `null`
     price: z.preprocess((arg) => (arg === '' ? null : arg), adSchema.shape.price),
     images: imageUpsertSchema.array(),
     categories: categorySchema.pick({ id: true }).array(),
