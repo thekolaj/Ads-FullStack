@@ -23,7 +23,6 @@ const submitUpdate = async () => {
 </script>
 
 <template>
-  {{ ad }}
   <AdForm v-model="ad" heading="Update Ad:" label="Update Ad" :submitFunction="submitUpdate" />
 </template>
 

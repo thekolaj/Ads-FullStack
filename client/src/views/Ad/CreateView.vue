@@ -17,7 +17,6 @@ const submitCreate = async () => {
 </script>
 
 <template>
-  {{ ad }}
   <AdForm v-model="ad" heading="Create New Ad:" label="Create Ad" :submitFunction="submitCreate" />
 </template>
 
