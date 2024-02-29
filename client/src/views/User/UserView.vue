@@ -9,15 +9,13 @@ const route = useRoute()
 const userId = Number(route.params.id)
 
 const user = ref<Awaited<ReturnType<typeof trpc.user.get.query>>>()
-const ads = ref<Awaited<ReturnType<typeof trpc.ad.list.query>>>([])
 onBeforeMount(async () => {
   user.value = await trpc.user.get.query({ id: userId })
-  ads.value = await trpc.ad.list.query({ userId })
 })
 </script>
 
 <template>
-  <AdList v-if="user" heading="User:" :ads="ads">
+  <AdList v-if="user" heading="User:" :searchBy="{ userId }">
     <div class="info">
       <fwb-p class="font-bold">
         Name: {{ user.name }} <fwb-badge v-if="user.admin" class="inline">Admin</fwb-badge>

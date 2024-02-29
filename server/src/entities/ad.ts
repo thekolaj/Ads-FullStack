@@ -83,6 +83,10 @@ export const adInsertSchema = adUpdateSchema.omit({ id: true })
 
 export const adSearchSchema = adSchema
   .pick({ userId: true })
-  .extend({ categoryId: z.number().int().positive() })
+  .extend({
+    categoryId: z.number().int().positive(),
+    pagination: z.object({ page: z.number().int().positive(), take: z.number().int().positive() }),
+  })
   .partial()
-  .optional()
+
+export type AdSearch = z.infer<typeof adSearchSchema>
