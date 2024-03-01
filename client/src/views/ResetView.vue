@@ -14,7 +14,7 @@ const [reset, errorMessage] = useErrorMessage(async () => {
 })
 
 function throwTestError() {
-  throw new Error(`This is a test! ${new Date().toISOString()}`)
+  throw new Error(`Test Front-end Error: ${new Date().toISOString()}`)
 }
 </script>
 
@@ -30,8 +30,9 @@ function throwTestError() {
     <AlertError :message="errorMessage">
       {{ errorMessage }}
     </AlertError>
-    <p>You can test Sentry error tracking with this button</p>
-    <FwbButton @click="throwTestError">Throw test Error</FwbButton>
+    <p>You can test Sentry error tracking with here</p>
+    <FwbButton @click="throwTestError">Throw Front-end Error</FwbButton>
+    <FwbButton @click="trpc.throwError.mutate()">Throw Back-end Error</FwbButton>
   </div>
 </template>
 

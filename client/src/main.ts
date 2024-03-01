@@ -25,7 +25,7 @@ if (sentryDSN) {
     tracesSampleRate: 1.0, //  Capture 100% of the transactions
 
     // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
-    tracePropagationTargets: [apiOrigin],
+    tracePropagationTargets: ['localhost', apiOrigin],
 
     // Session Replay
     replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.

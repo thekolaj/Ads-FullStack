@@ -48,6 +48,8 @@
     "vitest": "^0.34.6"
   },
   "dependencies": {
+    "@sentry/node": "^7.104.0",
+    "@sentry/profiling-node": "^7.104.0",
     "@trpc/server": "10.41.0",
     "bcrypt": "^5.1.1",
     "better-sqlite3": "^8.7.0",
