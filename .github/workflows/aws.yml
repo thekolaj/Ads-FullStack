@@ -123,9 +123,9 @@ jobs:
         run: >-
           docker build
           -t $CLIENT_IMAGE_TAG
+          --build-arg VITE_SENTRY_DSN="https://f7521fdb0b129888ea80f20402d4720f@o4506836047167488.ingest.sentry.io/4506836063420416"
           --build-arg VITE_API_ORIGIN=$API_ORIGIN
           --build-arg VITE_API_PATH=$API_PATH
-          --build-arg VITE_SENTRY_DSN=https://f7521fdb0b129888ea80f20402d4720f@o4506836047167488.ingest.sentry.io/4506836063420416
           -f ./client/Dockerfile .
 
       - name: Push server image
