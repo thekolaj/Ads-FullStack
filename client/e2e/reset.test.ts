@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test('Reset page exists', async ({ page }) => {
-  await page.goto('/reset')
+test('Reset button exists', async ({ page }) => {
+  await page.goto('/debug')
   await expect(page.getByRole('button', { name: 'Reset' })).toBeVisible()
 })

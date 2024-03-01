@@ -59,9 +59,9 @@ const router = createRouter({
       component: () => import('../views/Category/CategoryView.vue'),
     },
     {
-      path: '/reset',
-      name: 'Reset',
-      component: () => import('../views/ResetView.vue'),
+      path: '/debug',
+      name: 'Debug',
+      component: () => import('../views/DebugView.vue'),
     },
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],

@@ -1,10 +1,13 @@
 import { initTRPC } from '@trpc/server'
+import * as Sentry from '@sentry/node'
 import type { Request, Response } from 'express'
 import type { AuthUser } from '@server/entities/user'
 import type { Database } from '@server/database'
 import SuperJSON from 'superjson'
 import { ZodError } from 'zod'
 import { fromZodError } from 'zod-validation-error'
+import config from '../config'
+import logger from '../logger'
 
 export type Context = {
   db: Database
@@ -35,4 +38,15 @@ const t = initTRPC.context<Context>().create({
   },
 })
 
-export const { middleware, router, procedure: publicProcedure, mergeRouters } = t
+function addSentryMiddleware() {
+  const sentryMiddleware = t.middleware(
+    Sentry.Handlers.trpcMiddleware({
+      attachRpcInput: true,
+    })
+  )
+  logger.info('Sentry TRPC Middleware active')
+  return t.procedure.use(sentryMiddleware)
+}
+export const publicProcedure = config.sentryDSN ? addSentryMiddleware() : t.procedure
+
+export const { middleware, router, mergeRouters } = t

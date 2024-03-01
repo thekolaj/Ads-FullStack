@@ -59,11 +59,11 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
         <FwbHeading tag="h4">User:</FwbHeading>
         <p>email: 'first@user.org'</p>
         <p>password: 'Password321'</p>
-        <FwbHeading tag="h4">Reset:</FwbHeading>
+        <FwbHeading tag="h4">Reset / Test:</FwbHeading>
         <RouterLink
-          :to="{ name: 'Reset' }"
+          :to="{ name: 'Debug' }"
           class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >Reset Database Here</RouterLink
+          >Debug Here</RouterLink
         >
       </FwbAccordionContent>
     </FwbAccordionPanel>

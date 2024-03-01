@@ -20,7 +20,7 @@ function throwTestError() {
 
 <template>
   <div>
-    <fwb-heading tag="h2" class="title">Reset:</fwb-heading>
+    <fwb-heading tag="h2" class="title">Debug:</fwb-heading>
 
     <p>You can reset the database to it's default demo entries by clicking the button below</p>
     <FwbButton @click="reset">Reset</FwbButton>
@@ -30,7 +30,7 @@ function throwTestError() {
     <AlertError :message="errorMessage">
       {{ errorMessage }}
     </AlertError>
-    <p>You can test Sentry error tracking with here</p>
+    <p>You can test Sentry error tracking here</p>
     <FwbButton @click="throwTestError">Throw Front-end Error</FwbButton>
     <FwbButton @click="trpc.throwError.mutate()">Throw Back-end Error</FwbButton>
   </div>

@@ -177,6 +177,7 @@ jobs:
                 "DB_USER": "${{ secrets.PROD_DB_USER }}",
                 "DB_PASSWORD": "${{ secrets.PROD_DB_PASSWORD }}",
                 "TOKEN_KEY": "${{ secrets.TOKEN_KEY }}"
+                "SERVER_SENTRY_DSN": "${{ secrets.SERVER_SENTRY_DSN }}"
               }
             }
           }' > containers.json
