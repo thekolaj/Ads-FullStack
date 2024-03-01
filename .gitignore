@@ -26,3 +26,5 @@ coverage
 
 *.code-workspace
 task.md
+client/.env
+server/.env

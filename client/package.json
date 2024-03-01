@@ -17,6 +17,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@sentry/vue": "^7.104.0",
     "@trpc/client": "10.41.0",
     "@vueuse/core": "^10.8.0",
     "flowbite": "^2.3.0",

@@ -12,6 +12,10 @@ const [reset, errorMessage] = useErrorMessage(async () => {
   await trpc.reset.mutate()
   hasSucceeded.value = true
 })
+
+function throwTestError() {
+  throw new Error(`This is a test! ${new Date().toISOString()}`)
+}
 </script>
 
 <template>
@@ -26,6 +30,8 @@ const [reset, errorMessage] = useErrorMessage(async () => {
     <AlertError :message="errorMessage">
       {{ errorMessage }}
     </AlertError>
+    <p>You can test Sentry error tracking with this button</p>
+    <FwbButton @click="throwTestError">Throw test Error</FwbButton>
   </div>
 </template>
 
