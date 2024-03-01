@@ -10,6 +10,7 @@ import router from './router'
 
 const app = createApp(App)
 
+console.log(`Before start: ${sentryDSN} \n On: ${apiOrigin}`)
 if (sentryDSN) {
   Sentry.init({
     app,
@@ -25,7 +26,7 @@ if (sentryDSN) {
     tracesSampleRate: 1.0, //  Capture 100% of the transactions
 
     // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
-    tracePropagationTargets: ['localhost', apiOrigin],
+    tracePropagationTargets: [apiOrigin],
 
     // Session Replay
     replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
