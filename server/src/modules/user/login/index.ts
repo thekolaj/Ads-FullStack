@@ -4,6 +4,7 @@ import jsonwebtoken from 'jsonwebtoken'
 import { publicProcedure } from '@server/trpc'
 import { TRPCError } from '@trpc/server'
 import { User, userSchema } from '@server/entities/user'
+import logger from '@server/logger'
 import { prepareTokenPayload } from './tokenPayload'
 
 const { expiresIn, tokenKey } = config.auth
@@ -35,7 +36,7 @@ export default publicProcedure
     const payload = prepareTokenPayload(user)
 
     const accessToken = jsonwebtoken.sign(payload, tokenKey, { expiresIn })
-
+    logger.info(`User logged in: ${email}`)
     return {
       accessToken,
     }

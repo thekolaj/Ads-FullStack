@@ -2,6 +2,7 @@ import { hashPass } from '@server/utils/hashPass'
 import { publicProcedure } from '@server/trpc'
 import { User, userInsertSchema } from '@server/entities/user'
 import { TRPCError } from '@trpc/server'
+import logger from '@server/logger'
 
 export default publicProcedure
   .input(userInsertSchema)
@@ -16,6 +17,7 @@ export default publicProcedure
         comments,
         ...user
       } = await db.getRepository(User).save({ email, name, password: hash })
+      logger.info(`New user created: ${user.name} (${user.email})`)
       return user
     } catch (error) {
       if (!(error instanceof Error)) {

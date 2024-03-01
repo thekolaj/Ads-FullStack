@@ -1,6 +1,7 @@
 import createApp from './app'
 import { createDatabase } from './database'
 import config from './config'
+import logger from './logger'
 
 const database = createDatabase(config.database)
 
@@ -9,6 +10,6 @@ database.initialize().then(() => {
 
   app.listen(config.port, () => {
     // eslint-disable-next-line no-console
-    console.log(`Server is running at http://localhost:${config.port}`)
+    logger.info(`Server is running at http://localhost:${config.port}`)
   })
 })
