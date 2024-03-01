@@ -88,6 +88,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     env:
       API_ORIGIN: ${{ vars.API_ORIGIN }}
+      SENTRY_DSN: ${{ vars.SENTRY_DSN }}
       API_PATH: /api/v1/trpc
       CLIENT_IMAGE_TAG: client-${{ github.sha }}
       SERVER_IMAGE_TAG: server-${{ github.sha }}
