@@ -58,6 +58,7 @@ jobs:
           DB_NAME: testdb
           DB_HOST: localhost
           PORT: 3000
+          TOKEN_KEY: test
 
       - name: Build front end for E2E tests
         run: npm run build -w=client
