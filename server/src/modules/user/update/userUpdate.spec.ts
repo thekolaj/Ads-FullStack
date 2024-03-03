@@ -30,3 +30,12 @@ it('should throw an error updating wrong user', async () => {
     })
   ).rejects.toThrow(/user/i)
 })
+
+it('should require a unique email', async () => {
+  await expect(
+    update({
+      ...users[1],
+      email: users[0].email,
+    })
+  ).rejects.toThrow(/email/i)
+})

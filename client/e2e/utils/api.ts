@@ -44,5 +44,3 @@ export async function loginNewUser(page: Page, userLogin = fakeUser()) {
   // in case we want to make assertions based on generated user data
   return userLogin
 }
-
-export const reportBug = trpc.bug.report.mutate

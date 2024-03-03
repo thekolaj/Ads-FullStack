@@ -24,6 +24,9 @@ Added `admin` status to user to use both authentication and authorization.
 1. `npm install`
 2. Create a PostgreSQL database.
 3. Setup `.env` files in `client` and `server` based on `.env.example` files.
+4. Run server and client
+5. Go to `/debug` and reset the database to Seed some example entries.
+6. You can now login with pre-made account or create your own.
 
 ## Tests
 

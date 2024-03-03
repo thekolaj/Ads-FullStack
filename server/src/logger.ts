@@ -4,7 +4,7 @@ export default pino({
   transport: {
     target: 'pino-pretty',
     options: {
-      translateTime: 'UTC:yyyy-mm-dd HH:MM:ss.l o',
+      translateTime: 'UTC:yyyy-mm-dd HH:MM:ss.l',
       ignore: 'pid,hostname',
     },
   },
