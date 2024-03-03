@@ -1,7 +1,7 @@
 import { apiOrigin, apiPath } from './config'
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
 import type { AppRouter } from '@mono/server/src/shared/trpc'
-import { fakeUser } from './fakeData'
+import { fakeUser, fakeAd } from './fakeData'
 import type { Page } from '@playwright/test'
 import { superjson } from './superjson/common'
 
@@ -29,10 +29,6 @@ export async function loginNewUser(page: Page, userLogin = fakeUser()) {
 
   await page.goto('/')
 
-  // unfortunate that we are dealing with page internals and
-  // implementation details here, but as long as we make sure that
-  // this logic is in one place and it does not spill into tests,
-  // we should be fine.
   await page.evaluate(
     ({ accessToken }) => {
       localStorage.setItem('token', accessToken)
@@ -40,7 +36,18 @@ export async function loginNewUser(page: Page, userLogin = fakeUser()) {
     { accessToken }
   )
 
-  // returning the only thing that was generated inside (fakeUser)
-  // in case we want to make assertions based on generated user data
   return userLogin
+}
+
+export async function saveFakeAd(page: Page, ad = fakeAd()) {
+  await page.goto('/create')
+
+  // When
+  await page.locator('input[data-testid="titleInput"]').fill(ad.title)
+  await page.getByTestId('textInput').fill(ad.text)
+  await page.locator('input[data-testid="priceInput"]').fill(ad.price)
+  await page.getByRole('button', { name: '+' }).click()
+  await page.locator('input[data-testid="image-0"]').fill(ad.url)
+  await page.getByRole('button', { name: 'Create Ad' }).click()
+  return ad
 }

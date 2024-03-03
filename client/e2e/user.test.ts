@@ -50,7 +50,6 @@ test.describe.serial('signup and login sequence', () => {
   })
 })
 
-// Running logout test in isolation.
 test('visitor can logout', async ({ page }) => {
   // Given (ARRANGE)
   await loginNewUser(page)
@@ -70,4 +69,40 @@ test('visitor can logout', async ({ page }) => {
   await page.goto('/profile')
   await expect(logoutLink).toBeHidden()
   await expect(page).toHaveURL('/login')
+})
+
+test('User can edit profile', async ({ page }) => {
+  // Given (ARRANGE)
+  const user = fakeUser()
+  await loginNewUser(page, user)
+  await page.goto('/')
+  const userAdsLink = page.getByRole('link', { name: 'My Ads' })
+  await userAdsLink.click()
+
+  const userName = page.getByText('Name: ')
+  await expect(userName).toHaveText(`Name: ${user.name}`)
+  const userEmail = page.getByText('Email: ')
+  await expect(userEmail).toHaveText(`Email: ${user.email}`)
+  const userPhone = page.getByText('Phone: ')
+  await expect(userPhone).toHaveText(`Phone: `)
+
+  await page.goto('/profile')
+  const successMessage = page.getByTestId('successMessage')
+  await expect(successMessage).toBeHidden()
+
+  // When (ACT)
+  const newUserData = fakeUser()
+  const form = page.getByRole('form', { name: 'Account Update' })
+  await form.locator('input[data-testid="emailInput"]').fill(newUserData.email)
+  await form.locator('input[data-testid="nameInput"]').fill(newUserData.name)
+  await form.locator('input[data-testid="phoneInput"]').fill(newUserData.phone)
+  await form.locator('button[type="submit"]').click()
+
+  // Then (ASSERT)
+  await expect(successMessage).toBeVisible()
+  await userAdsLink.click()
+
+  await expect(userName).toHaveText(`Name: ${newUserData.name}`)
+  await expect(userEmail).toHaveText(`Email: ${newUserData.email}`)
+  await expect(userPhone).toHaveText(`Phone: ${newUserData.phone}`)
 })

@@ -37,16 +37,30 @@ const [submit, errorMessage] = useErrorMessage(props.submitFunction)
       <FwbInput
         class="mb-2.5"
         label="Title"
+        data-testid="titleInput"
         type="text"
         maxlength="64"
         v-model="ad.title"
         :required="true"
       />
 
-      <FwbTextarea label="Text" maxlength="999" v-model="ad.text" :required="true" />
+      <FwbTextarea
+        label="Text"
+        data-testid="textInput"
+        maxlength="999"
+        v-model="ad.text"
+        :required="true"
+      />
 
       <!-- @vue-ignore -->
-      <FwbInput label="Price" type="number" min="0" v-model.number="ad.price" />
+      <FwbInput
+        label="Price"
+        data-testid="priceInput"
+        type="number"
+        min="0"
+        step="0.01"
+        v-model.number="ad.price"
+      />
 
       <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
         >Image URLs
@@ -54,6 +68,7 @@ const [submit, errorMessage] = useErrorMessage(props.submitFunction)
       <FwbInput
         v-for="(image, i) in ad.images"
         :key="i"
+        :data-testid="`image-${i}`"
         class="mt-1"
         type="text"
         v-model="image.url"

@@ -31,18 +31,31 @@ const [submitUpdate, errorMessage] = useErrorMessage(async () => {
 <template>
   <PageForm heading="Your profile:" formLabel="Account update" @submit="submitUpdate">
     <template #default>
-      <FwbInput label="Email" type="email" v-model="user.email" :required="true" />
+      <FwbInput
+        label="Email"
+        type="email"
+        data-testid="emailInput"
+        v-model="user.email"
+        :required="true"
+      />
 
       <FwbInput
         label="Name"
         type="text"
+        data-testid="nameInput"
         minlength="3"
         maxlength="64"
         v-model="user.name"
         :required="true"
       />
 
-      <FwbInput label="Phone" type="text" maxlength="16" v-model="user.phone" />
+      <FwbInput
+        label="Phone"
+        type="text"
+        data-testid="phoneInput"
+        maxlength="16"
+        v-model="user.phone"
+      />
 
       <div class="grid">
         <FwbButton color="default" type="submit" size="xl">Update Profile</FwbButton>
