@@ -12,14 +12,14 @@ test.describe.serial('Ad CRUD', () => {
 
     // When
     await page.locator('input[data-testid="titleInput"]').fill(ad.title)
-    await page.getByTestId('textInput').fill(ad.text)
+    await page.locator('textarea[data-testid="textInput"]').fill(ad.text)
     await page.locator('input[data-testid="priceInput"]').fill(ad.price)
     await page.getByRole('button', { name: '+' }).click()
     await page.locator('input[data-testid="image-0"]').fill(ad.url)
     await page.getByRole('button', { name: 'Create Ad' }).click()
 
     // Then
-    await expect(page).toHaveURL(/\/ad\/\d+/)
+    await page.waitForURL(/\/ad\/\d+/)
     await expect(page.getByRole('heading', { name: ad.title })).toBeVisible()
     await expect(page.getByText(ad.text)).toBeVisible()
     await expect(page.getByText('Price:')).toHaveText(`Price: ${ad.price}`)
@@ -32,16 +32,20 @@ test.describe.serial('Ad CRUD', () => {
     await loginNewUser(page, user)
     await page.goto('/')
     await page.getByText(ad.title).click()
+    await page.waitForURL(/\/ad\/\d+/)
     await page.getByRole('link', { name: /edit/i }).click()
+    await page.waitForURL(/\/update\/\d+/)
+    // Wait for form to populate
+    await expect(page.locator('input[data-testid="titleInput"]')).toHaveValue(ad.title)
 
     // When
-    await page.getByTestId('textInput').fill(newAd.text)
+    await page.locator('textarea[data-testid="textInput"]').fill(newAd.text)
     await page.locator('input[data-testid="priceInput"]').fill(newAd.price)
     await page.locator('input[data-testid="image-0"]').fill(newAd.url)
     await page.getByRole('button', { name: 'Update Ad' }).click()
 
     // Then
-    await expect(page).toHaveURL(/\/ad\/\d+/)
+    await page.waitForURL(/\/ad\/\d+/)
     await expect(page.getByRole('heading', { name: ad.title })).toBeVisible()
     await expect(page.getByText(newAd.text)).toBeVisible()
     await expect(page.getByText('Price:')).toHaveText(`Price: ${newAd.price}`)
@@ -59,7 +63,7 @@ test.describe.serial('Ad CRUD', () => {
     await page.getByRole('button', { name: /yes/i }).click()
 
     // Then
-    await expect(page).toHaveURL('/')
+    await page.waitForURL('/')
     await expect(page.getByText(ad.title)).toBeHidden()
   })
 })

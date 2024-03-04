@@ -80,15 +80,17 @@ test('User can edit profile', async ({ page }) => {
   await userAdsLink.click()
 
   const userName = page.getByText('Name: ')
-  await expect(userName).toHaveText(`Name: ${user.name}`)
   const userEmail = page.getByText('Email: ')
-  await expect(userEmail).toHaveText(`Email: ${user.email}`)
   const userPhone = page.getByText('Phone: ')
+  await expect(userName).toHaveText(`Name: ${user.name}`)
+  await expect(userEmail).toHaveText(`Email: ${user.email}`)
   await expect(userPhone).toHaveText(`Phone: `)
 
   await page.goto('/profile')
   const successMessage = page.getByTestId('successMessage')
   await expect(successMessage).toBeHidden()
+  // Wait for form to populate
+  await expect(page.locator('input[data-testid="emailInput"]')).toHaveValue(user.email)
 
   // When (ACT)
   const newUserData = fakeUser()
