@@ -59,7 +59,7 @@ const [submit, errorMessage] = useErrorMessage(props.submitFunction)
         type="number"
         min="0"
         step="0.01"
-        v-model.number="ad.price"
+        v-model="ad.price"
       />
 
       <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
