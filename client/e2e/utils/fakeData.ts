@@ -1,6 +1,6 @@
 import { Chance } from 'chance'
 
-export const random = process.env.CI ? Chance(1) : Chance()
+export const random = Chance()
 
 export const fakeUser = () => ({
   email: random.email(),
@@ -13,5 +13,5 @@ export const fakeAd = () => ({
   title: random.sentence({ words: 5 }),
   text: random.sentence({ words: 10 }),
   price: random.floating({ min: 1, max: 9999999, fixed: 2 }).toString(),
-  url: 'http://localhost:5173/src/assets/noImage.png',
+  url: 'http://localhost/',
 })

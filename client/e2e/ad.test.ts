@@ -20,14 +20,10 @@ test.describe.serial('Ad CRUD', () => {
 
     // Then
     await expect(page).toHaveURL(/\/ad\/\d+/)
-    const adTitle = page.getByRole('heading', { name: ad.title })
-    await expect(adTitle).toBeVisible()
-    const adText = page.getByText(ad.text)
-    await expect(adText).toBeVisible()
-    const adPrice = page.getByText('Price:')
-    await expect(adPrice).toHaveText(`Price: ${ad.price}`)
-    const adImg = page.getByRole('img', { name: 'User Image' })
-    await expect(adImg).toHaveAttribute('src', ad.url)
+    await expect(page.getByRole('heading', { name: ad.title })).toBeVisible()
+    await expect(page.getByText(ad.text)).toBeVisible()
+    await expect(page.getByText('Price:')).toHaveText(`Price: ${ad.price}`)
+    await expect(page.getByRole('img', { name: 'User Image' })).toHaveAttribute('src', ad.url)
   })
 
   test('user can update an Ad', async ({ page }) => {
@@ -46,14 +42,10 @@ test.describe.serial('Ad CRUD', () => {
 
     // Then
     await expect(page).toHaveURL(/\/ad\/\d+/)
-    const adTitle = page.getByRole('heading', { name: ad.title })
-    await expect(adTitle).toBeVisible()
-    const adText = page.getByText(newAd.text)
-    await expect(adText).toBeVisible()
-    const adPrice = page.getByText('Price:')
-    await expect(adPrice).toHaveText(`Price: ${newAd.price}`)
-    const adImg = page.getByRole('img', { name: 'User Image' })
-    await expect(adImg).toHaveAttribute('src', newAd.url)
+    await expect(page.getByRole('heading', { name: ad.title })).toBeVisible()
+    await expect(page.getByText(newAd.text)).toBeVisible()
+    await expect(page.getByText('Price:')).toHaveText(`Price: ${newAd.price}`)
+    await expect(page.getByRole('img', { name: 'User Image' })).toHaveAttribute('src', newAd.url)
   })
 
   test('user can delete an Ad', async ({ page }) => {
@@ -68,7 +60,6 @@ test.describe.serial('Ad CRUD', () => {
 
     // Then
     await expect(page).toHaveURL('/')
-    const deletedAd = page.getByText(ad.title)
-    await expect(deletedAd).toBeHidden()
+    await expect(page.getByText(ad.title)).toBeHidden()
   })
 })
